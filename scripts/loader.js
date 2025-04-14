@@ -56,6 +56,15 @@ function findArticle() {
  * @returns 
  */
 function buildSidebar() {
+
+  // if the article list is aready set for this book, leave it as it is
+  let bookIdx = document.getElementById('book-index');
+  let bookInfo = bookIdx.querySelector('#' + CURRENT_ARTICLE.bookId);
+  if (bookInfo != null) {
+    return;
+  }
+
+  // turn on/off sidebar accordingly
   let book = ALL_BOOKS.books.find(item => item.bookId == CURRENT_ARTICLE.bookId);
   let sidebar = document.getElementById('sidebar');
   if (!book || book.bookId == 'home') {
@@ -66,13 +75,13 @@ function buildSidebar() {
   }
 
   let category, categoryTitle, article, p, ul, li, link;
-  let bookIdx = document.getElementById('book-index');
   bookIdx.innerHTML = '';
 
   // create a book title
   p = document.createElement('p');
-  p.className = 'category-title';
+  p.id = book.bookId;
   p.textContent = book.title;
+  p.className = 'category-title';
   bookIdx.appendChild(p);
 
   for (let i = 0; i < book.categories.length; i++) {
@@ -94,13 +103,15 @@ function buildSidebar() {
     ul.style.display = (i == 0 ? 'block' : 'none');
     for (let j = 0; j < category.articles.length; j++) {
       article = category.articles[j];
-      link = '<a href="#' + book.bookId + '/' +
-        category.categoryId + '/' +
-        article.articleId + '">' +
-        article.title + '</a>';
-      li = document.createElement('li');
-      li.innerHTML = link;
-      ul.appendChild(li);
+      if (article.selected) {
+        link = '<a href="#' + book.bookId + '/' +
+          category.categoryId + '/' +
+          article.articleId + '">' +
+          article.title + '</a>';
+        li = document.createElement('li');
+        li.innerHTML = link;
+        ul.appendChild(li);
+      }
     }
     bookIdx.appendChild(p);
     bookIdx.appendChild(ul);

@@ -22,6 +22,7 @@ const ALL_BOOKS =
               {
                 "articleId": "1",
                 "title": "home",
+                "selected": true,
                 "textUrl": "htmls/home.html"
               }
             ]
@@ -41,66 +42,81 @@ const ALL_BOOKS =
               {
                 "articleId": "1",
                 "title": "学校",
+                "selected": true,
                 "textUrl": "books/esc6/lessons/lesson-01-学校.html"
               },
               {
                 "articleId": "2",
                 "title": "课程",
+                "selected": true,
                 "textUrl": "books/esc6/lessons/lesson-02-课程.html"
               },
               {
                 "articleId": "3",
                 "title": "学汉语",
+                "selected": true,
                 "textUrl": "books/esc6/lessons/lesson-03-学汉语.html"
               },
               {
                 "articleId": "4",
                 "title": "去北京",
+                "selected": false,
                 "textUrl": "books/esc6/lessons/lesson-04-去北京.html"
               },
               {
                 "articleId": "5",
                 "title": "游学",
+                "selected": false,
                 "textUrl": "books/esc6/lessons/lesson-05-游学.html"
               }, {
                 "articleId": "6",
                 "title": "过年",
+                "selected": false,
                 "textUrl": "books/esc6/lessons/lesson-06-过年.html"
               }, {
                 "articleId": "7",
                 "title": "义卖会",
+                "selected": false,
                 "textUrl": "books/esc6/lessons/lesson-07-义卖会.html"
               }, {
                 "articleId": "8",
                 "title": "挑战",
+                "selected": false,
                 "textUrl": "books/esc6/lessons/lesson-08-挑战.html"
               }, {
                 "articleId": "9",
                 "title": "露营",
+                "selected": false,
                 "textUrl": "books/esc6/lessons/lesson-09-露营.html"
               }, {
                 "articleId": "10",
                 "title": "青年人",
+                "selected": false,
                 "textUrl": "books/esc6/lessons/lesson-10-青年人.html"
               }, {
                 "articleId": "11",
                 "title": "压力",
+                "selected": false,
                 "textUrl": "books/esc6/lessons/lesson-11-压力.html"
               }, {
                 "articleId": "12",
                 "title": "烦恼",
+                "selected": false,
                 "textUrl": "books/esc6/lessons/lesson-12-烦恼.html"
               }, {
                 "articleId": "13",
                 "title": "新科技",
+                "selected": true,
                 "textUrl": "books/esc6/lessons/lesson-13-新科技.html"
               }, {
                 "articleId": "14",
                 "title": "健康",
+                "selected": false,
                 "textUrl": "books/esc6/lessons/lesson-14-健康.html"
               }, {
                 "articleId": "15",
                 "title": "环保",
+                "selected": false,
                 "textUrl": "books/esc6/lessons/lesson-15-环保.html"
               }
             ]
@@ -112,31 +128,43 @@ const ALL_BOOKS =
               {
                 "articleId": "1",
                 "title": "中文强化班",
+                "selected": false,
                 "textUrl": "books/esc6/reading/中文强化班.html"
               }, {
                 "articleId": "2",
                 "title": "台北",
+                "selected": true,
                 "textUrl": "books/esc6/reading/台北.html"
               }, {
                 "articleId": "3",
                 "title": "我所了解的西安",
+                "selected": true,
                 "textUrl": "books/esc6/reading/我所了解的西安.html"
               }, {
                 "articleId": "4",
                 "title": "在北京地球村做义工",
+                "selected": true,
                 "textUrl": "books/esc6/reading/在北京地球村做义工.html"
               }, {
                 "articleId": "5",
                 "title": "数码教学",
+                "selected": true,
                 "textUrl": "books/esc6/reading/数码教学.html"
               }, {
                 "articleId": "6",
                 "title": "中国人的饮食变化",
+                "selected": false,
                 "textUrl": "books/esc6/reading/中国人的饮食变化.html"
               }, {
                 "articleId": "7",
                 "title": "世界地球日",
+                "selected": false,
                 "textUrl": "books/esc6/reading/世界地球日.html"
+              }, {
+                "articleId": "8",
+                "title": "中国人的面条",
+                "selected": true,
+                "textUrl": "books/esc6/reading/中国人的面条.html"
               }
             ]
           },
@@ -147,51 +175,63 @@ const ALL_BOOKS =
               {
                 "articleId": "1",
                 "title": "他和她",
+                "selected": true,
                 "textUrl": "books/esc6/additional-reading/他和她.html"
               }, {
                 "articleId": "2",
                 "title": "余光中诗二首",
+                "selected": true,
                 "textUrl": "books/esc6/additional-reading/余光中诗二首.html"
               },
               {
                 "articleId": "3",
                 "title": "大年初一没下雪",
+                "selected": false,
                 "textUrl": "books/esc6/additional-reading/大年初一没下雪.html"
               }, {
                 "articleId": "4",
                 "title": "卖火柴的小女孩",
+                "selected": true,
                 "textUrl": "books/esc6/additional-reading/卖火柴的小女孩.html"
               }, {
                 "articleId": "5",
                 "title": "小王子",
+                "selected": true,
                 "textUrl": "books/esc6/additional-reading/小王子.html"
               }, {
                 "articleId": "6",
                 "title": "来了个老外",
+                "selected": true,
                 "textUrl": "books/esc6/additional-reading/来了个老外.html"
               }, {
                 "articleId": "7",
                 "title": "扒手",
+                "selected": true,
                 "textUrl": "books/esc6/additional-reading/扒手.html"
               }, {
                 "articleId": "8",
                 "title": "写作文",
+                "selected": false,
                 "textUrl": "books/esc6/additional-reading/作文.html"
               }, {
                 "articleId": "9",
                 "title": "凯瑟琳·柯美尔",
+                "selected": false,
                 "textUrl": "books/esc6/additional-reading/凯瑟琳·柯美尔.html"
               }, {
                 "articleId": "10",
                 "title": "父与子",
+                "selected": false,
                 "textUrl": "books/esc6/additional-reading/父与子.html"
               }, {
                 "articleId": "11",
                 "title": "老兄，我醒着",
+                "selected": true,
                 "textUrl": "books/esc6/additional-reading/老兄，我醒着.html"
               }, {
                 "articleId": "12",
                 "title": "越界了",
+                "selected": true,
                 "textUrl": "books/esc6/additional-reading/越界了.html"
               }
             ]
@@ -203,42 +243,52 @@ const ALL_BOOKS =
               {
                 "articleId": "1",
                 "title": "粗心大意",
+                "selected": true,
                 "textUrl": "books/esc6/story/粗心大意.html"
               }, {
                 "articleId": "2",
                 "title": "装腔作势",
+                "selected": true,
                 "textUrl": "books/esc6/story/装腔作势.html"
               }, {
                 "articleId": "3",
                 "title": "将错就错",
+                "selected": true,
                 "textUrl": "books/esc6/story/将错就错.html"
               }, {
                 "articleId": "4",
                 "title": "失而复得",
+                "selected": true,
                 "textUrl": "books/esc6/story/失而复得.html"
               }, {
                 "articleId": "5",
                 "title": "顺其自然",
+                "selected": true,
                 "textUrl": "books/esc6/story/顺其自然.html"
               }, {
                 "articleId": "6",
                 "title": "温水青蛙",
+                "selected": true,
                 "textUrl": "books/esc6/story/温水青蛙.html"
               }, {
                 "articleId": "7",
                 "title": "守株待兔",
+                "selected": true,
                 "textUrl": "books/esc6/story/守株待兔.html"
               }, {
                 "articleId": "8",
                 "title": "画蛇添足",
+                "selected": true,
                 "textUrl": "books/esc6/story/画蛇添足.html"
               }, {
                 "articleId": "9",
                 "title": "刻舟求剑",
+                "selected": true,
                 "textUrl": "books/esc6/story/刻舟求剑.html"
               }, {
                 "articleId": "10",
                 "title": "惊弓之鸟",
+                "selected": true,
                 "textUrl": "books/esc6/story/惊弓之鸟.html"
               }
             ]
@@ -258,95 +308,114 @@ const ALL_BOOKS =
               {
                 "articleId": "1",
                 "title": "天梯",
+                "selected": true,
                 "textUrl": "books/workshop/天梯.html"
               }, {
                 "articleId": "2",
                 "title": "梦是美丽的",
+                "selected": true,
                 "textUrl": "books/workshop/梦是美丽的.html"
               },
               {
                 "articleId": "3",
                 "title": "他和她",
+                "selected": true,
                 "textUrl": "books/workshop/他和她.html"
               },
               {
                 "articleId": "4",
                 "title": "来了个老外",
+                "selected": true,
                 "textUrl": "books/workshop/来了个老外.html"
               },
               {
                 "articleId": "5",
                 "title": "大年初一没下雪",
+                "selected": true,
                 "textUrl": "books/workshop/大年初一没下雪.html"
               },
               {
                 "articleId": "6",
                 "title": "扒手",
+                "selected": true,
                 "textUrl": "books/workshop/扒手.html"
               },
               {
                 "articleId": "7",
                 "title": "棉花糖实验",
+                "selected": true,
                 "textUrl": "books/workshop/棉花糖实验.html"
               },
               {
                 "articleId": "8",
                 "title": "最后的野骆驼",
+                "selected": true,
                 "textUrl": "books/最后的野骆驼.html"
               },
               {
                 "articleId": "9",
                 "title": "新素食主义来了",
+                "selected": true,
                 "textUrl": "books/workshop/新素食主义来了.html"
               },
               {
                 "articleId": "10",
                 "title": "无价的狸狸",
+                "selected": true,
                 "textUrl": "books/workshop/无价的狸狸.html"
               },
               {
                 "articleId": "11",
                 "title": "二、三事（节选）",
+                "selected": true,
                 "textUrl": "books/workshop/二、三事.html"
               },
               {
                 "articleId": "12",
                 "title": "微博、微信",
+                "selected": true,
                 "textUrl": "books/workshop/微博、微信.html"
               },
               {
                 "articleId": "13",
                 "title": "卖火柴的小女孩",
+                "selected": true,
                 "textUrl": "books/workshop/卖火柴的小女孩.html"
               },
               {
                 "articleId": "14",
                 "title": "余光中诗二首",
+                "selected": true,
                 "textUrl": "books/workshop/余光中诗二首.html"
               },
               {
                 "articleId": "15",
                 "title": "凯瑟琳·柯美尔",
+                "selected": true,
                 "textUrl": "books/workshop/凯瑟琳·柯美尔.html"
               },
               {
                 "articleId": "16",
                 "title": "赛车冠军",
+                "selected": true,
                 "textUrl": "books/workshop/赛车冠军.html"
               },
               {
                 "articleId": "17",
                 "title": "五味",
+                "selected": true,
                 "textUrl": "books/workshop/五味.html"
               },
               {
                 "articleId": "18",
                 "title": "祝你情人节快乐",
+                "selected": true,
                 "textUrl": "books/workshop/祝你情人节快乐.html"
               },
               {
                 "articleId": "19",
                 "title": "我与长城中文学校",
+                "selected": true,
                 "textUrl": "books/workshop/我与长城中文学校.html"
               }
             ]
@@ -366,21 +435,25 @@ const ALL_BOOKS =
               {
                 "articleId": "1",
                 "title": "他和她",
+                "selected": true,
                 "textUrl": "books/reading/散文/他和她.html"
               },
               {
                 "articleId": "2",
                 "title": "爱吹牛的北京男人",
+                "selected": true,
                 "textUrl": "books/reading/散文/爱吹牛的北京男人.html"
               },
               {
                 "articleId": "3",
                 "title": "上海人",
+                "selected": true,
                 "textUrl": "books/reading/散文/上海人.html"
               },
               {
                 "articleId": "4",
                 "title": "爆竹声声",
+                "selected": true,
                 "textUrl": "books/reading/散文/爆竹声声.html"
               }
             ]
@@ -392,37 +465,50 @@ const ALL_BOOKS =
               {
                 "articleId": "1",
                 "title": "扒手",
+                "selected": true,
                 "textUrl": "books/reading/侦探/扒手.html"
               },
               {
                 "articleId": "2",
                 "title": "东方快车谋杀案",
+                "selected": true,
                 "textUrl": "books/reading/侦探/东方快车谋杀案.html"
               },
               {
                 "articleId": "3",
                 "title": "罗杰疑案",
+                "selected": true,
                 "textUrl": "books/reading/侦探/罗杰疑案.html"
               },
               {
                 "articleId": "4",
                 "title": "巴斯克维尔的猎犬",
+                "selected": true,
                 "textUrl": "books/reading/侦探/巴斯克维尔的猎犬.html"
               },
               {
                 "articleId": "5",
                 "title": "回归记",
+                "selected": true,
                 "textUrl": "books/reading/侦探/回归记.html"
               },
               {
                 "articleId": "6",
                 "title": "四签名",
+                "selected": true,
                 "textUrl": "books/reading/侦探/四签名.html"
               },
               {
                 "articleId": "7",
                 "title": "ABC谋杀案",
+                "selected": true,
                 "textUrl": "books/reading/侦探/ABC谋杀案.html"
+              },
+              {
+                "articleId": "8",
+                "title": "无人生还",
+                "selected": true,
+                "textUrl": "books/reading/侦探/无人生还.html"
               }
             ]
           },
@@ -433,21 +519,25 @@ const ALL_BOOKS =
               {
                 "articleId": "1",
                 "title": "卖火柴的小女孩",
+                "selected": true,
                 "textUrl": "books/reading/童话/卖火柴的小女孩.html"
               },
               {
                 "articleId": "2",
                 "title": "三十六万五千天",
+                "selected": true,
                 "textUrl": "books/reading/童话/三十六万五千天.html"
               },
               {
                 "articleId": "3",
                 "title": "皇帝的新装",
+                "selected": true,
                 "textUrl": "books/reading/童话/皇帝的新装.html"
               },
               {
                 "articleId": "4",
                 "title": "小王子",
+                "selected": true,
                 "textUrl": "books/reading/童话/小王子.html"
               }
             ]
@@ -459,21 +549,25 @@ const ALL_BOOKS =
               {
                 "articleId": "1",
                 "title": "竞选州长",
+                "selected": true,
                 "textUrl": "books/reading/小说/竞选州长.html"
               },
               {
                 "articleId": "2",
                 "title": "撒哈拉的故事",
+                "selected": true,
                 "textUrl": "books/reading/小说/撒哈拉的故事.html"
               },
               {
                 "articleId": "3",
                 "title": "长虫二颤",
+                "selected": true,
                 "textUrl": "books/reading/小说/长虫二颤.html"
               },
               {
                 "articleId": "4",
                 "title": "我与地坛",
+                "selected": true,
                 "textUrl": "books/reading/小说/我与地坛.html"
               }
             ]
@@ -484,12 +578,14 @@ const ALL_BOOKS =
             "articles": [
               {
                 "articleId": "1",
-                "title": "爱因斯坦赤道",
+                "title": "朝闻道",
+                "selected": true,
                 "textUrl": "books/reading/科幻/朝闻道.html"
               },
               {
                 "articleId": "2",
                 "title": "北京折叠",
+                "selected": true,
                 "textUrl": "books/reading/科幻/北京折叠.html"
               }
             ]
