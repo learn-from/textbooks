@@ -108,6 +108,27 @@ p.page-name {
 	color: darkgray;
 }
 
+div.left-panel {
+	float:left;
+	width:40%;
+	border-right: solid;
+	border-color: rgb(237, 235, 235);
+}
+
+div.right-panel {
+	float:right;
+	width:50%;
+}
+
+
+.no-padding-list {
+	list-style-type: none;
+	text-indent: -50px;
+	padding-left: 50px;
+	font-size: 18px;
+	font-family: KaiTi;
+}
+
 .latin {
 	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 16px;

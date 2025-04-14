@@ -350,7 +350,7 @@ const ALL_BOOKS =
                 "articleId": "8",
                 "title": "最后的野骆驼",
                 "selected": true,
-                "textUrl": "books/最后的野骆驼.html"
+                "textUrl": "books/workshop/最后的野骆驼.html"
               },
               {
                 "articleId": "9",
