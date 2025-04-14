@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+
+<head>
+	<style>
+		div.desktop {
+			display: block;
+		}
+
+		div.mobile {
+			display: none;
+		}
+
+		img.logo {
+			height: 160px;
+			margin-top: 6px;
+			margin-left: 20px;
+			display: inline;
+			float: left;
+		}
+
+		span.quote {
+			font-family: SimSun;
+			font-size: 18px;
+			color: blue;
+		}
+
+		p.title {
+			font-family: SimSun;
+			font-size: 24px;
+			text-align: center;
+		}
+
+		p.note {
+			margin-top: 100px;
+			font-family: SimSun;
+			font-size: 14px;
+			text-align: center;
+			color: darkgray;
+		}
+
+		p.tools {
+			text-indent: 32px;
+			margin-top: 10px;
+			text-align: center;
+			font-family: Georgia, 'Times New Roman', Times, serif;
+			font-size: 14px;
+		}
+
+		table.content {
+			font-family: SimSun;
+			font-size: 18px;
+			margin-left: 170px;
+			border-collapse: collapse;
+			border: 0;
+		}
+
+		td.name {
+			width: 100px;
+			padding: 10px;
+		}
+
+		@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+			div.desktop {
+				display: none;
+			}
+
+			div.mobile {
+				display: block;
+			}
+
+			table.content {
+				margin-left: 0px;
+				border-collapse: collapse;
+				border: 0;
+			}
+
+			p.label-name {
+				font-family: SimSun;
+				font-weight: bold;
+				font-size: 18px;
+				color: rgb(77, 77, 77);
+			}
+
+			p.tools {
+				text-indent: 32px;
+				margin-top: 10px;
+				font-family: Georgia, 'Times New Roman', Times, serif;
+				font-size: 14px;
+			}
+
+			ul.post-name {
+				font-family: SimSun;
+				font-size: 16px;
+				padding-left: -16px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<!--
+	Create a Page instead of a post with this HTML file. This is used as the static landing page of the site.
+	-->
+	<div id="landing" class="desktop">
+		<p class="title">教材分成四个部分：</p>
+		<!-- the ESC6 book cover image -->
+		<img src="https://lh3.googleusercontent.com/pw/AP1GczMAvW9U3tyQ0dISGzJ1rPCaS10J-duI9aMbknmTqxu9QN0lBX2T-_LhAn-0tBZymjyLtMgc18bO2CcOvYiQoGyWhN8ogWnet2-3qnetczAovCalqUCALZhuErqfHzs0AOqj0iQM9Bzxhgw3-JAYlJy0=w381-h500-s-no-gm?authuser=0"
+			class='logo' />
+
+		<table class="content">
+			<tbody>
+				<tr>
+					<td class="name"><a href='/2024/07/blog-post.html'><span class='quote'>课文</span></a></td>
+					<td>课本中的部分课文</td>
+				</tr>
+				<tr>
+					<td class="name"><a href='/2024/07/blog-post_73.html'><span class='quote'>短文阅读</span></a></td>
+					<td>课本中的部分阅读课文</td>
+				</tr>
+				<tr>
+					<td class="name"><a href='/2024/07/blog-post_74.html'><span class="quote">扩展阅读</span></a></td>
+					<td>扩大阅读范围，提高学习兴趣</td>
+				</tr>
+				<tr>
+					<td class="name"><a href='/2024/07/blog-post_75.html'><span class='quote'>小故事</span></a></td>
+					<td>点缀课堂学习，活跃课堂气氛</td>
+				</tr>
+			</tbody>
+		</table>
+		<p class="note">部分课文附有录音，可以在页内听，也可在 <span class="latin">YouTube</span> 上听。</p>
+		<!-- <p class="tools"><a href='https://gwca-textbook.blogspot.com/p/text-to-speech.html' target='_blank'>Here</a> are
+			some AI powered tools to help you with pronunciation, tones, and reading aloud.</p> -->
+	</div>
+
+	<div class="mobile">
+		<table class="content">
+			<tbody>
+				<tr>
+					<td style="vertical-align: top">
+						<p class="label-name">课文</p>
+						<ul class="post-name">
+							<li><a href="/2024/07/blog-post.html" class="link">学校</a></li>
+							<li><a href="/2024/07/blog-post_15.html" class="link">课程</a></li>
+							<li><a href="/2024/07/blog-post_49.html" class="link">学汉语</a></li>
+							<!-- <li><a href="/2024/07/blog-post_4.html" class="link">去北京</a></li>
+							<li><a href="/2024/07/blog-post_7.html" class="link">游学</a></li>
+							<li><a href="/2024/07/blog-post_98.html" class="link">过年</a></li>
+							<li><a href="/2024/07/blog-post_14.html" class="link">义卖会</a></li>
+							<li><a href="/2024/07/blog-post_54.html" class="link">挑战</a></li>
+							<li><a href="/2024/07/blog-post_13.html" class="link">露营</a></li>
+							<li><a href="/2024/07/blog-post_77.html" class="link">青年人</a></li>
+							<li><a href="/2024/07/p.html" class="link">压力</a></li>
+							<li><a href="/2024/07/blog-post_23.html" class="link">烦恼</a></li> -->
+							<li><a href="/2024/07/blog-post_8.html" class="link">新科技</a></li>
+							<!-- <li><a href="/2024/07/blog-post_62.html" class="link">健康</a></li>
+							<li><a href="/2024/07/blog-post_41.html" class="link">环保</a></li> -->
+						</ul>
+						<p class="label-name">短文阅读</p>
+						<ul class="post-name">
+							<!-- <li><a href="/2024/07/blog-post_73.html" class="link">中文强化班</a></li> -->
+							<li><a href="/2024/07/blog-post_9.html" class="link">台北</a></li>
+							<li><a href="/2024/07/blog-post_92.html" class="link">数码教学</a></li>
+							<!-- <li><a href="/2024/07/blog-post_20.html" class="link">中国人的饮食变化</a></li> -->
+							<li><a href="/2024/07/blog-post_50.html" class="link">在北京地球村做义工</a></li>
+							<li><a href="/2024/07/blog-post_76.html" class="link">我所了解的西安</a></li>
+							<li><a href="/2024/07/blog-post_91.html" class="link">世界地球日</a></li>
+						</ul>
+					</td>
+					<td style="vertical-align: top">
+						<p class="label-name">扩展阅读</p>
+						<ul class="post-name">
+							<li><a href="/2024/07/blog-post_74.html" class="link">他和她</a></li>
+							<li><a href="/2024/07/blog-post_55.html" class="link">卖火柴的小女孩</a></li>
+							<li><a href="/2024/07/blog-post_89.html" class="link">写作文</a></li>
+							<li><a href="/2024/07/blog-post_48.html" class="link">父与子</a></li>
+							<li><a href="/2024/07/blog-post_69.html" class="link">来了个老外</a></li>
+							<li><a href="/2024/07/blog-post_59.html" class="link">凯瑟琳·柯美尔</a></li>
+							<li><a href="/2024/07/blog-post_94.html" class="link">小王子</a></li>
+							<li><a href="/2024/07/blog-post_35.html" class="link">余光中诗二首</a></li>
+							<li><a href="/2024/07/blog-post_1.html" class="link">扒手</a></li>
+							<li><a href="/2024/07/blog-post_45.html" class="link">大年初一没下雪</a></li>
+						</ul>
+						<p class="label-name">小故事</p>
+						<ul class="post-name">
+							<li><a href="/2024/07/blog-post_75.html" class="link">温水青蛙</a></li>
+							<li><a href="/2024/07/blog-post_70.html" class="link">顺其自然</a></li>
+							<li><a href="/2024/07/blog-post_60.html" class="link">失而复得</a></li>
+							<li><a href="/2024/07/blog-post_24.html" class="link">将错就错</a></li>
+							<li><a href="/2024/07/blog-post_0.html" class="link">粗心大意</a></li>
+							<li><a href="/2024/07/blog-post_31.html" class="link">画蛇添足</a></li>
+							<li><a href="/2024/07/blog-post_53.html" class="link">惊弓之鸟</a></li>
+							<li><a href="/2024/07/blog-post_71.html" class="link">装腔作势</a></li>
+							<li><a href="/2024/07/blog-post_43.html" class="link">守株待兔</a></li>
+							<li><a href="/2024/07/blog-post_6.html" class="link">刻舟求剑</a></li>
+						</ul>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>
