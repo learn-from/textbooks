@@ -15,7 +15,7 @@ img.logo {
 }
 
 img.cover {
-	width: 95%;
+	width: 90%;
 	margin-left: 20px;
 	margin-bottom: 40px;
 }
@@ -58,7 +58,7 @@ div.container {
 
 div.content {
 	float: left;
-	width: 82%;
+	width: 80%;
 	padding: 20px;
 	margin-bottom: 60px;
 	flex: 1;
@@ -67,8 +67,9 @@ div.content {
 div.sidebar {
 	float: left;
 	top: 40px;
-	width: 18%;
+	width: 20%;
 	height: fit-content;
+	margin-top: 30px;
 	padding: 10px;
 	background-color: rgb(244, 244, 244);
 	position: sticky;
