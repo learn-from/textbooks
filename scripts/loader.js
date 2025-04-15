@@ -28,6 +28,7 @@ async function loadContent() {
       .then(response => response.text())
       .then(data => content.innerHTML = data)
       .catch(error => console.error("Error loading header:", error));
+    toTop();
   } catch (err) {
     // TODO load an error message page. 
   }

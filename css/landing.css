@@ -53,6 +53,7 @@ td.name {
 div.container {
 	width: 100%;
 	margin: 20px 0 0 5%;
+	display: flex;
 }
 
 div.content {
@@ -60,15 +61,18 @@ div.content {
 	width: 82%;
 	padding: 20px;
 	margin-bottom: 60px;
+	flex: 1;
 }
 
 div.sidebar {
 	float: left;
+	top: 40px;
 	width: 18%;
-	margin-top: 34px;
+	height: fit-content;
 	padding: 10px;
 	background-color: rgb(244, 244, 244);
-	display: block;
+	position: sticky;
+	align-self: flex-start;
 }
 
 .footer {

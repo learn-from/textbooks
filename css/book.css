@@ -120,7 +120,6 @@ div.right-panel {
 	width:50%;
 }
 
-
 .no-padding-list {
 	list-style-type: none;
 	text-indent: -50px;
@@ -172,11 +171,4 @@ iframe.player {
 	border: none;
 	width: 88%;
 	height: 42px;
-}
-
-p.next-chapter {
-	text-align: right;
-	font-size: 36px;
-	color: cadetblue;
-	margin-right: 36px;
 }

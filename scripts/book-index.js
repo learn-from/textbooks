@@ -426,7 +426,7 @@ const ALL_BOOKS =
         "bookId": "reading",
         "title": "课外阅读",
         "image": "images/sites/reading.jpg",
-        "description": "这里是一些程度不同的课外阅读材料，选自国内外不同题材的文章，内容有故事、散文、童话、科幻和中短篇小说等，供教师在教学过程中配合教材使用。",
+        "description": "这里是一些程度不同的课外阅读材料，选自国内外不同题材的文章，内容有散文、童话、科幻和中短篇小说等，供教师在教学过程中配合教材使用。",
         "categories": [
           {
             "categoryId": "1",

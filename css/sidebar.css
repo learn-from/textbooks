@@ -46,10 +46,10 @@ audio.text-reader {
 
 p.reader-msg {
 	width: 100%;
-	padding:4px;
+	padding-left:6px;
 	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 12px;
-	color: brown;
+	color: darkgreen;
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
