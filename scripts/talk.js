@@ -2,9 +2,14 @@
 const APP_KEY = 'AIzaSyBU3xYCOz2XoE5GceIGaXqzfgdEXD8TdcY';
 const TTS_URL = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${APP_KEY}`;
 
-if (!isMobile()) {
-	document.addEventListener('mouseup', sayHighlighted);
-	document.addEventListener('keyup', sayHighlighted);
+document.addEventListener('DOMContentLoaded', initAudioPlayer);
+
+function initAudioPlayer() {
+	if (!isMobile() && !isIpad()) {
+		document.addEventListener('mouseup', sayHighlighted);
+		document.addEventListener('keyup', sayHighlighted);
+		document.getElementById('audio-player').style.display = 'block';
+	}
 }
 
 /**

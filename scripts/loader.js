@@ -2,17 +2,20 @@
 window.addEventListener("hashchange", loadPage);
 window.addEventListener("load", loadPage);
 
+/**
+ * Loads header, sidebar and content dynamically according to the value of window.location.hash.
+ */
 async function loadPage() {
 
   setCurrentArticle();
-  buildSidebar();
+  buildTableOfContent();
 
-  // try {
+  try {
     await initHeader();
     await loadContent();
-  // } catch (err) {
-  //   console.error("Error loading a content page:", err);
-  // }
+  } catch (err) {
+    console.error("Error loading a content page:", err);
+  }
 }
 
 /**
@@ -34,6 +37,11 @@ async function loadContent() {
   }
 }
 
+/**
+ * Loads the pre-defined error page (DOES NOT WORK)
+ * @param page 
+ * @param {*} error 
+ */
 async function loadErrorPage(page, error) {
   await fetch('htmls/page404.html')
     .then(response => response.text())
@@ -41,6 +49,10 @@ async function loadErrorPage(page, error) {
     .catch(error => console.error("Error loading 404 error page:", error));
 }
 
+/**
+ * Finds an article from the book index, and returns the first article if not found.
+ * @returns 
+ */
 function findArticle() {
   let category, article;
   let book = ALL_BOOKS.books.find(item => item.bookId == CURRENT_ARTICLE.bookId);
@@ -63,7 +75,7 @@ function findArticle() {
  * Builds a table of content of the selected category of the current article
  * @returns 
  */
-function buildSidebar() {
+function buildTableOfContent() {
 
   // if the article list is aready set for this book, leave it as it is
   let bookIdx = document.getElementById('book-index');
@@ -80,10 +92,6 @@ function buildSidebar() {
     return;
   } else {
     sidebar.style.display = 'block';
-  }
-
-  if (!isMobile()) {
-    document.getElementById('audio-player').style.display = 'block';
   }
 
   let category, categoryTitle, article, p, ul, li, link;
@@ -131,9 +139,8 @@ function buildSidebar() {
   }
 }
 
-
 /**
- * Shows or hides the posts for the specified lable
+ * Shows or hides the articles of the specified category
  */
 function showArticles(category) {
   if (category.length > 0) {

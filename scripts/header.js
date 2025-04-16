@@ -23,6 +23,11 @@ function isMobile() {
 	// return false;
 }
 
+function isIpad() {
+	const userAgent = navigator.userAgent.toLowerCase();
+	return (/ipad/.test(userAgent));
+}
+
 /**
  * Initializes the header, listeners and the content pages.
  */
@@ -93,130 +98,130 @@ function findBookDesc(bookId) {
  * Hides all meun rows and shows the specified one.
  * @param {*} id 
  */
-function showMenuRow(id) {
-	hideMenuRows();
-	document.getElementById(id).style.display = 'block';
-}
+// function showMenuRow(id) {
+// 	hideMenuRows();
+// 	document.getElementById(id).style.display = 'block';
+// }
 
 /**
  * Hides all menu rows.
  */
-function hideMenuRows() {
-	document.getElementById('category-row').style.display = 'none';
-	if (!isMobile())
-		document.getElementById('usage-row').style.display = 'none';
-}
+// function hideMenuRows() {
+// 	document.getElementById('category-row').style.display = 'none';
+// 	if (!isMobile())
+// 		document.getElementById('usage-row').style.display = 'none';
+// }
 
 /**
  * Builds a category list from the ALL_WORDS object as a clickable category selector
  */
-function buildCategories() {
+// function buildCategories() {
 
-	console.log('Start building categories');
-	let category = null;
-	let categoryTagId;
-	let rowTagName = 'tr';
-	let colTagName = 'td';
-	let colTagClass = 'clickable';
-	let numCol;
-	if (isMobile()) {
-		categoryTagId = 'mobile-category-row';
-		document.getElementById(categoryTagId).style.display = 'block';
-		numCol = 4;
-	} else {
-		categoryTagId = 'category-row';
-		numCol = 6;
-	}
+// 	console.log('Start building categories');
+// 	let category = null;
+// 	let categoryTagId;
+// 	let rowTagName = 'tr';
+// 	let colTagName = 'td';
+// 	let colTagClass = 'clickable';
+// 	let numCol;
+// 	if (isMobile()) {
+// 		categoryTagId = 'mobile-category-row';
+// 		document.getElementById(categoryTagId).style.display = 'block';
+// 		numCol = 4;
+// 	} else {
+// 		categoryTagId = 'category-row';
+// 		numCol = 6;
+// 	}
 
-	// build HTML elements for the clickable categories
-	let id, cname, row, col;
-	let colIdx = 0;
-	let table = document.getElementById(categoryTagId);
-	let div = table.getElementsByTagName('tbody')[0];
-	div.innerHTML = '';
-	for (let i = 0; i < ALL_WORDS.length; i += numCol) {
-		row = document.createElement(rowTagName);
-		for (let j = 0; (j < numCol && colIdx < (ALL_WORDS.length - 1)); j++) {
-			colIdx = i + j;
-			category = ALL_WORDS[colIdx];
-			id = category.category;
-			cname = category.cname;
-			col = document.createElement(colTagName);
-			col.id = id;
-			col.className = colTagClass;
-			if (isMobile()) {
-				col.textContent = id;
-			} else {
-				col.textContent = cname + ' - ' + id;
-			}
-			col.onclick = function () { setCategory(this.id); };
-			row.appendChild(col);
-		}
-		div.appendChild(row);
-	}
-	// console.log(div.outerHTML);
-}
+// 	// build HTML elements for the clickable categories
+// 	let id, cname, row, col;
+// 	let colIdx = 0;
+// 	let table = document.getElementById(categoryTagId);
+// 	let div = table.getElementsByTagName('tbody')[0];
+// 	div.innerHTML = '';
+// 	for (let i = 0; i < ALL_WORDS.length; i += numCol) {
+// 		row = document.createElement(rowTagName);
+// 		for (let j = 0; (j < numCol && colIdx < (ALL_WORDS.length - 1)); j++) {
+// 			colIdx = i + j;
+// 			category = ALL_WORDS[colIdx];
+// 			id = category.category;
+// 			cname = category.cname;
+// 			col = document.createElement(colTagName);
+// 			col.id = id;
+// 			col.className = colTagClass;
+// 			if (isMobile()) {
+// 				col.textContent = id;
+// 			} else {
+// 				col.textContent = cname + ' - ' + id;
+// 			}
+// 			col.onclick = function () { setCategory(this.id); };
+// 			row.appendChild(col);
+// 		}
+// 		div.appendChild(row);
+// 	}
+// 	// console.log(div.outerHTML);
+// }
 
 /**
  * Searches a word (Chinese or English) from the allWord list. Note that if the word
  * is not unique in the list, returns the first one.
  */
-function searchWord() {
-	let value = document.getElementById('search-word').value.trim();
-	let error = document.getElementById('search-error');
-	error.textContent = '';
+// function searchWord() {
+// 	let value = document.getElementById('search-word').value.trim();
+// 	let error = document.getElementById('search-error');
+// 	error.textContent = '';
 
-	let category, words, word;
-	if (ALL_WORDS.length == 0) {
-		error.textContent = 'Refresh the page.';
-		return null;
-	}
-	for (let i = 0; i < ALL_WORDS.length; i++) {
-		category = ALL_WORDS[i];
-		words = category.words;
-		word = words.find(item => (item.chinese == value || item.english.toLowerCase() == value.toLowerCase()));
-		if (word != null) {
-			currentCategory = category.category;
-			break;
-		}
-	}
+// 	let category, words, word;
+// 	if (ALL_WORDS.length == 0) {
+// 		error.textContent = 'Refresh the page.';
+// 		return null;
+// 	}
+// 	for (let i = 0; i < ALL_WORDS.length; i++) {
+// 		category = ALL_WORDS[i];
+// 		words = category.words;
+// 		word = words.find(item => (item.chinese == value || item.english.toLowerCase() == value.toLowerCase()));
+// 		if (word != null) {
+// 			currentCategory = category.category;
+// 			break;
+// 		}
+// 	}
 
-	if (word == null) {
-		error.textContent = 'No this word: ' + value;
-	} else {
-		buildWordEntry(word);
-		draw(word);
-		buildWordList();
-	}
-}
+// 	if (word == null) {
+// 		error.textContent = 'No this word: ' + value;
+// 	} else {
+// 		buildWordEntry(word);
+// 		draw(word);
+// 		buildWordList();
+// 	}
+// }
 
 /**
  * Uses RETURN key instead of button for searching
  */
-function enterKeyPressed(event) {
-	if (event.keyCode == 13) {
-		searchWord();
-	}
-}
+// function enterKeyPressed(event) {
+// 	if (event.keyCode == 13) {
+// 		searchWord();
+// 	}
+// }
 
 /**
  * Shows/hides the hamburger siderar for mobile devices
  */
-function toggleMenu() {
-	if (isMobile()) {
-		let sidebar = document.getElementById("sidebar");
-		let isOn = sidebar.style.display == 'block';
-		sidebar.style.display = (isOn ? 'none' : 'block');
-	}
-}
+// function toggleMenu() {
+// 	if (isMobile()) {
+// 		let sidebar = document.getElementById("sidebar");
+// 		let isOn = sidebar.style.display == 'block';
+// 		sidebar.style.display = (isOn ? 'none' : 'block');
+// 	}
+// }
 
 // Close menu if user clicks outside
-window.onclick = function (event) {
-	if (isMobile()) {
-		if (!event.target.matches('.hamburger')) {
-			let sidebar = document.getElementById("sidebar");
-			let isOn = sidebar.style.display = 'block';
-			sidebar.style.display = (isOn ? 'none' : 'block');
-		}
-	}
-}
+// window.onclick = function (event) {
+// 	if (isMobile()) {
+// 		if (!event.target.matches('.hamburger')) {
+// 			let sidebar = document.getElementById("sidebar");
+// 			let isOn = sidebar.style.display = 'block';
+// 			sidebar.style.display = (isOn ? 'none' : 'block');
+// 		}
+// 	}
+// }
