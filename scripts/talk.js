@@ -5,7 +5,7 @@ const TTS_URL = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${AP
 document.addEventListener('DOMContentLoaded', initAudioPlayer);
 
 function initAudioPlayer() {
-	if (!isMobile() && !isIpad()) {
+	if (isDeskTop()) {
 		document.addEventListener('mouseup', sayHighlighted);
 		document.addEventListener('keyup', sayHighlighted);
 		document.getElementById('audio-player').style.display = 'block';

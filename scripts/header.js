@@ -28,6 +28,10 @@ function isIpad() {
 	return (/ipad/.test(userAgent));
 }
 
+function isDeskTop() {
+	return (!isMobile() || isIpad());
+}
+
 /**
  * Initializes the header, listeners and the content pages.
  */
@@ -96,7 +100,7 @@ function findBookDesc(bookId) {
 
 /**
  * Hides all meun rows and shows the specified one.
- * @param {*} id 
+ * @param {*} id
  */
 // function showMenuRow(id) {
 // 	hideMenuRows();
