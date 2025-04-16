@@ -6,6 +6,12 @@
  */
 function isMobile() {
 	const userAgent = navigator.userAgent.toLowerCase();
+
+	console.log("userAgent", userAgent, "android:", /android/.test(userAgent),
+		"iphone or ipod:", (/iphone|ipod/.test(userAgent)), "ipad:", /ipad/.test(userAgent));
+
+	return (/iphone|ipod/.test(userAgent) || /android/.test(userAgent));
+
 	// const isTouch = 'ontouchstart' in window;
 	// const width = window.innerWidth;
 
@@ -14,10 +20,6 @@ function isMobile() {
 	// let isMobile = (/iphone|ipod/.test(userAgent) || /android/.test(userAgent) || isTouch && width <= 768 || isTouch && width > 768);
 
 	// console.log("isTouch", isTouch, "width", width);
-	console.log("userAgent", userAgent, "android", /android/.test(userAgent),
-		"iphone|ipod", (/iphone|ipod/.test(userAgent)), "ipad", /ipad/.test(userAgent));
-
-	return (/iphone|ipod/.test(userAgent) || /android/.test(userAgent));
 	// return (/iphone|ipod/.test(userAgent) || /android/.test(userAgent) || isTouch && width <= 768 || isTouch && width > 768);
 	// return (mobile && !iPad);
 	// return false;
@@ -25,11 +27,14 @@ function isMobile() {
 
 function isIpad() {
 	const userAgent = navigator.userAgent.toLowerCase();
+	console.log("ipad:", /ipad/.test(userAgent));
 	return (/ipad/.test(userAgent));
 }
 
 function isDeskTop() {
-	return (!isMobile() && !isIpad());
+	let desktop = (!isMobile() && !isIpad());
+	console.log("desktop:", desktop);
+	return desktop;
 }
 
 /**
