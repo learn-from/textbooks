@@ -101,7 +101,7 @@ function buildTableOfContent() {
   p = document.createElement('p');
   p.id = book.bookId;
   p.textContent = book.title;
-  p.className = 'category-title';
+  p.className = 'book-title';
   bookIdx.appendChild(p);
 
   for (let i = 0; i < book.categories.length; i++) {
