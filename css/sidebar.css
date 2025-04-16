@@ -33,6 +33,7 @@ ul {
 
 div.audio-player {
 	width: 100%;
+	display: none;
 }
 
 audio.text-reader {

@@ -7,12 +7,12 @@ async function loadPage() {
   setCurrentArticle();
   buildSidebar();
 
-  try {
+  // try {
     await initHeader();
     await loadContent();
-  } catch (err) {
-    // app.innerHTML = "<h2>404 - Page Not Found</h2>";
-  }
+  // } catch (err) {
+  //   console.error("Error loading a content page:", err);
+  // }
 }
 
 /**
@@ -27,11 +27,18 @@ async function loadContent() {
     await fetch(textUrl)
       .then(response => response.text())
       .then(data => content.innerHTML = data)
-      .catch(error => console.error("Error loading header:", error));
+      .catch(error => content.innerHTML = error);
     toTop();
   } catch (err) {
-    // TODO load an error message page. 
+    await loadErrorPage(content, err);
   }
+}
+
+async function loadErrorPage(page, error) {
+  await fetch('htmls/page404.html')
+    .then(response => response.text())
+    .then(data => page.innerHTML = data)
+    .catch(error => console.error("Error loading 404 error page:", error));
 }
 
 function findArticle() {
@@ -73,6 +80,10 @@ function buildSidebar() {
     return;
   } else {
     sidebar.style.display = 'block';
+  }
+
+  if (!isMobile()) {
+    document.getElementById('audio-player').style.display = 'block';
   }
 
   let category, categoryTitle, article, p, ul, li, link;
