@@ -29,7 +29,7 @@ function isIpad() {
 }
 
 function isDeskTop() {
-	return (!isMobile() || isIpad());
+	return (!isMobile() && !isIpad());
 }
 
 /**
