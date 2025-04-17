@@ -5,37 +5,38 @@
  * Checks the device is a mobile device (iPhone or Android phone)
  */
 function isMobile() {
-	const userAgent = navigator.userAgent.toLowerCase();
+	let userAgent = navigator.userAgent.toLowerCase();
+	let isTouch = 'ontouchstart' in window;
+	let width = window.innerWidth;
 
-	console.log("userAgent", userAgent, "android:", /android/.test(userAgent),
-		"iphone or ipod:", (/iphone|ipod/.test(userAgent)), "ipad:", /ipad/.test(userAgent));
-
-	return (/iphone|ipod/.test(userAgent) || /android/.test(userAgent));
-
-	// const isTouch = 'ontouchstart' in window;
-	// const width = window.innerWidth;
-
-	// let ipad = isIpad();
-	// let mobile = (/iphone/.test(userAgent) || /android/.test(userAgent));
-	// let isMobile = (/iphone|ipod/.test(userAgent) || /android/.test(userAgent) || isTouch && width <= 768 || isTouch && width > 768);
-
-	// console.log("isTouch", isTouch, "width", width);
-	// return (/iphone|ipod/.test(userAgent) || /android/.test(userAgent) || isTouch && width <= 768 || isTouch && width > 768);
-	// return (mobile && !iPad);
-	// return false;
+	let isMobile = ((/iphone|ipad|ipod/.test(userAgent)
+		|| /android/.test(userAgent)
+		|| isTouch && width <= 768
+		|| isTouch && width > 768)) && (!isIpadPro());
+	console.log(userAgent, 'isTouch:', isTouch, 'width:', width, 'isMobile:', isMobile);
+	return isMobile;
 }
 
-function isIpad() {
-	const userAgent = navigator.userAgent.toLowerCase();
-	console.log("ipad:", /ipad/.test(userAgent));
-	return (/ipad/.test(userAgent));
+function isIpadPro() {
+	let userAgent = navigator.userAgent.toLowerCase();
+	let isIPad = /ipad/.test(userAgent);
+	let isMacWithTouch = navigator.platform === 'MacIntel' && 'ontouchend' in document;
+
+	let width = window.screen.width;
+	let height = window.screen.height;
+	let pixelRatio = window.devicePixelRatio;
+
+	// 12.9" iPad Pro,  11" iPad Pro
+	return
+	(width === 1024 && height === 1366 && pixelRatio === 2) ||
+		(width === 834 && height === 1194 && pixelRatio === 2);
 }
 
-function isDeskTop() {
-	let desktop = (!isMobile() && !isIpad());
-	console.log("desktop:", desktop);
-	return desktop;
-}
+// function isDeskTop() {
+// 	let desktop = (!isMobile() && !isIpad());
+// 	console.log("desktop:", desktop);
+// 	return desktop;
+// }
 
 /**
  * Initializes the header, listeners and the content pages.
