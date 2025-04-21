@@ -470,45 +470,51 @@ const ALL_BOOKS =
               },
               {
                 "articleId": "2",
-                "title": "东方快车谋杀案",
-                "selected": true,
-                "textUrl": "books/reading/侦探/东方快车谋杀案.html"
-              },
-              {
-                "articleId": "3",
-                "title": "罗杰疑案",
-                "selected": true,
-                "textUrl": "books/reading/侦探/罗杰疑案.html"
-              },
-              {
-                "articleId": "4",
                 "title": "巴斯克维尔的猎犬",
                 "selected": true,
                 "textUrl": "books/reading/侦探/巴斯克维尔的猎犬.html"
               },
               {
-                "articleId": "5",
+                "articleId": "3",
                 "title": "回归记",
                 "selected": true,
                 "textUrl": "books/reading/侦探/回归记.html"
               },
               {
-                "articleId": "6",
+                "articleId": "4",
                 "title": "四签名",
                 "selected": true,
                 "textUrl": "books/reading/侦探/四签名.html"
               },
               {
-                "articleId": "7",
+                "articleId": "5",
                 "title": "ABC谋杀案",
                 "selected": true,
                 "textUrl": "books/reading/侦探/ABC谋杀案.html"
               },
               {
-                "articleId": "8",
+                "articleId": "6",
                 "title": "无人生还",
                 "selected": true,
                 "textUrl": "books/reading/侦探/无人生还.html"
+              },
+              {
+                "articleId": "7",
+                "title": "东方快车谋杀案",
+                "selected": true,
+                "textUrl": "books/reading/侦探/东方快车谋杀案.html"
+              },
+              {
+                "articleId": "8",
+                "title": "罗杰疑案",
+                "selected": true,
+                "textUrl": "books/reading/侦探/罗杰疑案.html"
+              },
+              {
+                "articleId": "9",
+                "title": "沉睡谋杀案",
+                "selected": false,
+                "textUrl": "books/reading/侦探/沉睡谋杀案.html"
               }
             ]
           },
