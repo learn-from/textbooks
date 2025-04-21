@@ -190,49 +190,49 @@ const ALL_BOOKS =
                 "textUrl": "books/esc6/additional-reading/大年初一没下雪.html"
               }, {
                 "articleId": "4",
-                "title": "卖火柴的小女孩",
-                "selected": true,
-                "textUrl": "books/esc6/additional-reading/卖火柴的小女孩.html"
-              }, {
-                "articleId": "5",
                 "title": "小王子",
                 "selected": true,
                 "textUrl": "books/esc6/additional-reading/小王子.html"
               }, {
-                "articleId": "6",
+                "articleId": "5",
                 "title": "来了个老外",
                 "selected": true,
                 "textUrl": "books/esc6/additional-reading/来了个老外.html"
               }, {
-                "articleId": "7",
+                "articleId": "6",
                 "title": "扒手",
                 "selected": true,
                 "textUrl": "books/esc6/additional-reading/扒手.html"
               }, {
-                "articleId": "8",
+                "articleId": "7",
                 "title": "写作文",
                 "selected": false,
                 "textUrl": "books/esc6/additional-reading/作文.html"
               }, {
-                "articleId": "9",
+                "articleId": "8",
                 "title": "凯瑟琳·柯美尔",
                 "selected": false,
                 "textUrl": "books/esc6/additional-reading/凯瑟琳·柯美尔.html"
               }, {
-                "articleId": "10",
+                "articleId": "9",
                 "title": "父与子",
                 "selected": false,
                 "textUrl": "books/esc6/additional-reading/父与子.html"
               }, {
-                "articleId": "11",
+                "articleId": "10",
                 "title": "老兄，我醒着",
                 "selected": true,
                 "textUrl": "books/esc6/additional-reading/老兄，我醒着.html"
               }, {
-                "articleId": "12",
+                "articleId": "11",
                 "title": "越界了",
                 "selected": true,
                 "textUrl": "books/esc6/additional-reading/越界了.html"
+              }, {
+                "articleId": "12",
+                "title": "卖火柴的小女孩",
+                "selected": true,
+                "textUrl": "books/esc6/additional-reading/卖火柴的小女孩.html"
               }
             ]
           },
