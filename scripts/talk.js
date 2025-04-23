@@ -1,5 +1,5 @@
 
-const APP_KEY = 'AIzaSyBU3xYCOz2XoE5GceIGaXqzfgdEXD8TdcY';
+const APP_KEY = 'AIzaSyAc95QQS_JYEPg8EAa2bERiH4102aeekk0';
 const TTS_URL = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${APP_KEY}`;
 
 document.addEventListener('DOMContentLoaded', initAudioPlayer);
