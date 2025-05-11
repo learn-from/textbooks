@@ -160,7 +160,7 @@ function showArticles(category) {
 }
 
 /**
- * The URL hash could be like this path#bookId/categoryId/articleId (#esc6/1/1).
+ * The URL hash looks like this path#bookId/categoryId/articleId (e.g. #esc6/1/1).
  * Parses the hash to set the current article (CURRENT_ARTICLE)
  * @returns 
  */
@@ -171,6 +171,7 @@ function setCurrentArticle() {
     case 1:
       CURRENT_ARTICLE.bookId = names[0];
       CURRENT_ARTICLE.categoryId = CURRENT_ARTICLE.articleId = "1";
+      CURRENT_ARTICLE.articleId = "1";
       break;
     case 2:
       CURRENT_ARTICLE.bookId = names[0];
