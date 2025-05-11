@@ -15,11 +15,6 @@
   <link href='css/landing.css' rel='stylesheet' />
   <link href='css/book.css' rel='stylesheet' />
   <link href='css/sidebar.css' rel='stylesheet' />
-
-  <script src="scripts/book-index.js"></script>
-  <script src="scripts/header.js"></script>
-  <script src="scripts/talk.js"></script>
-  <script src="scripts/footer.js"></script>
 </head>
 
 <body>
@@ -48,7 +43,7 @@
   </div>
 
   <!-- to top button -->
-  <button onclick="toTop()" id="topBtn" title="Go to top">^</button>
+  <button id="topBtn" title="Go to top">^</button>
 
   <!-- footer always at the bottom of the page -->
   <div class="footer">
@@ -61,7 +56,7 @@
   </div>
 
   <!-- load page content dynamically to make this be a single page app -->
-  <script src="scripts/loader.js"></script>
+  <script type="module" src="scripts/App.js"></script>
 </body>
 
 </html>
