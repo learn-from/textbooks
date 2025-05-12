@@ -16,7 +16,7 @@ export class AppUtils {
     let isMobile = ((/iphone|ipad|ipod/.test(userAgent)
       || /android/.test(userAgent)
       || isTouch && width <= 768
-      || isTouch && width > 768)) && (!isIpadPro());
+      || isTouch && width > 768)) && (!AppUtils.isIpadPro());
     console.log(userAgent, 'isTouch:', isTouch, 'width:', width, 'isMobile:', isMobile);
     return isMobile;
   }

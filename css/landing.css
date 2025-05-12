@@ -14,12 +14,6 @@ img.logo {
 	float: left;
 }
 
-img.cover {
-	width: 90%;
-	margin-left: 20px;
-	margin-bottom: 40px;
-}
-
 p.site-title {
 	font-family: Georgia, 'Times New Roman', Times, serif;
 	font-size: 48px;
@@ -33,14 +27,6 @@ p.book-desc {
 	font-size: 16px;
 	color: darkgreen;
 	margin-left: 30px;
-}
-
-td.logo {
-	width: 140px;
-}
-
-td.name {
-	padding: 20px;
 }
 
 .menu-bar {
@@ -98,7 +84,9 @@ div.sidebar {
 	margin-right: 20px;
 }
 
-.footer-menu-bar a:hover {color: whitesmoke;}
+.footer-menu-bar a:hover {
+	color: whitesmoke;
+}
 
 #topBtn {
 	display: none;
@@ -120,4 +108,57 @@ div.sidebar {
 	background-color: lightgray;
 }
 
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+	body {
+		width: 100%;
+	}
+
+	div.header {
+		width: 90%;
+	}
+
+	img.logo {
+		height: 60px;
+		margin-left: 4px;
+		display: inline;
+		float: left;
+	}
+
+	p.site-title {
+		font-family: Georgia, 'Times New Roman', Times, serif;
+		font-size: 24px;
+		font-weight: bold;
+		color: darkgreen;
+		margin-left: 16px;
+	}
+
+	p.book-desc {
+		font-family: SimSun;
+		font-size: 12px;
+		color: darkgreen;
+		margin-left: 14px;
+	}
+
+	.menu-bar {
+		font-family: KaiTi;
+		font-size: 16px;
+		margin-left: 20px;
+		margin-top: -10px;
+	}
+
+	div.container {
+		width: 100%;
+	}
+
+	div.content {
+		width: 100%;
+	}
+
+	div.sidebar {
+		width: 100%;
+	}
+
+	.footer {
+		display: none;
+	}
+}

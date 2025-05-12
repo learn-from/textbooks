@@ -120,9 +120,8 @@ export class Loader {
     if (!book || book.bookId == 'home') {
       sidebar.style.display = 'none';
       return;
-    } else {
-      sidebar.style.display = 'block';
     }
+    sidebar.style.display = 'block';
 
     let category, categoryTitle, article, p, ul, li, link;
     bookIdx.innerHTML = '';
@@ -198,3 +197,5 @@ export class Loader {
     }
   }
 }
+
+window.Loader = Loader;
