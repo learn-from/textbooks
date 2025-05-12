@@ -33,7 +33,7 @@ div.article {
 
 div.article-text {
 	width: 98%;
-	float: Left;
+	/* float: Left; */
 	margin-right: 2%;
 	margin-left: 2%;
 	font-size: 18px;
@@ -45,7 +45,7 @@ div.article-text {
 
 div.article-toc {
 	width: 98%;
-	float: Left;
+	/* float: Left; */
 	margin-left: 6%;
 	font-size: 16px;
 	text-indent: 32px;
@@ -55,9 +55,9 @@ div.article-toc {
 }
 
 table.toc {
-	width:95%; 
+	width: 95%;
 	table-layout: fixed;
-	margin-bottom:20px;
+	margin-bottom: 20px;
 }
 
 p.author {
@@ -109,15 +109,15 @@ p.page-name {
 }
 
 div.left-panel {
-	float:left;
-	width:40%;
+	float: left;
+	width: 40%;
 	border-right: solid;
 	border-color: rgb(237, 235, 235);
 }
 
 div.right-panel {
-	float:right;
-	width:50%;
+	float: right;
+	width: 50%;
 }
 
 .no-padding-list {
@@ -171,4 +171,16 @@ iframe.player {
 	border: none;
 	width: 88%;
 	height: 42px;
+}
+
+@media only screen and (max-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+	div.article-text {
+		width: 100%;
+		margin-left: -10px;
+		font-size: 16px;
+		text-indent: 32px;
+		font-family: KaiTi;
+		color: black;
+		border: 0;
+	}
 }
