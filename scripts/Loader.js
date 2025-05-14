@@ -110,11 +110,12 @@ export class Loader {
     }
 
     // add some event handlers to the modal element
-    document.addEventListener('mouseup', Speaker.sayHighlighted);
-    document.addEventListener('keyup', Speaker.sayHighlighted);
     if (AppUtils.isMobile()) {
       document.addEventListener('touchend', Speaker.sayHighlighted);
       document.addEventListener('selectionchange', Speaker.sayHighlighted);
+    } else {
+      document.addEventListener('mouseup', Speaker.sayHighlighted);
+      document.addEventListener('keyup', Speaker.sayHighlighted);
     }
 
     // Close the modal when the user clicks the "x"

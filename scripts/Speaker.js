@@ -23,8 +23,8 @@ export class Speaker {
 	 * If some text is highlighted in article-text element, say it.
 	 */
 	static sayHighlighted() {
-		let selection = window.getSelection();
-		let selectedText = selection.toString();
+		const selection = window.getSelection();
+		const selectedText = selection.toString();
 
 		if (!selectedText) return;
 
@@ -32,8 +32,8 @@ export class Speaker {
 		speaker.openModal(selectedText);
 
 		// Check if the selection is within the phrase or sentence element
-		let selectedElement = selection.anchorNode?.parentNode;
-		let article = document.getElementsByClassName('article-text')[0];
+		const selectedElement = selection.anchorNode?.parentNode;
+		const article = document.getElementsByClassName('article-text')[0];
 
 		if (selectedElement === article || article.contains(selectedElement)) {
 			speaker.playAudio(selectedText);
@@ -44,8 +44,8 @@ export class Speaker {
 	 * Uses Google's text to speech service to say the specified text.
 	 */
 	async playAudio(text) {
-		let langCode = 'cmn-CN';
-		let langName = 'cmn-TW-Wavenet-A'; // Mandarin Chinese , female
+		const langCode = 'cmn-CN';
+		const langName = 'cmn-TW-Wavenet-A'; // Mandarin Chinese , female
 
 		const requestBody = {
 			input: {
@@ -95,8 +95,8 @@ export class Speaker {
 	 */
 	static async speechCheck() {
 		const speaker = Speaker.getInstance();
-		let tag = document.getElementById('highlighted-text');
-		let text = tag.textContent;
+		const tag = document.getElementById('highlighted-text');
+		const text = tag.textContent;
 		speaker.openModal(text);
 		speaker.recognizeSpeech(text);
 	}
@@ -107,14 +107,14 @@ export class Speaker {
 	 */
 	async recognizeSpeech(text) {
 		// const speaker = Speaker.getInstance();
-		let waitTime = ((text.length < 3 ? 4 : text.length) / 2.5) * 1000;
+		const waitTime = ((text.length < 3 ? 4 : text.length) / 2.5) * 1000;
 		try {
 			// Get microphone access
-			let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
 			// Create MediaRecorder to capture audio
-			let mediaRecorder = new MediaRecorder(stream);
-			let audioChunks = [];
+			const mediaRecorder = new MediaRecorder(stream);
+			const audioChunks = [];
 
 			mediaRecorder.ondataavailable = (event) => {
 				audioChunks.push(event.data);
@@ -122,8 +122,8 @@ export class Speaker {
 
 			mediaRecorder.onstop = async () => {
 				// Convert audio to Base64
-				let audioBlob = new Blob(audioChunks, { type: 'audio/ogg; codecs=opus' });
-				let base64Audio = await this.convertBlobToBase64(audioBlob);
+				const audioBlob = new Blob(audioChunks, { type: 'audio/ogg; codecs=opus' });
+				const base64Audio = await this.convertBlobToBase64(audioBlob);
 
 				// Send audio to Google Speech-to-Text API
 				this.transcribeAudio(text, base64Audio);
@@ -149,7 +149,7 @@ export class Speaker {
 	 */
 	convertBlobToBase64(blob) {
 		return new Promise((resolve) => {
-			let reader = new FileReader();
+			const reader = new FileReader();
 			reader.onloadend = () => resolve(reader.result.split(',')[1]); // Extract Base64
 			reader.readAsDataURL(blob);
 		});
@@ -160,7 +160,7 @@ export class Speaker {
 	 */
 	async transcribeAudio(text, base64Audio) {
 		// console.log("Base64 Audio (First 100 chars):", base64Audio.substring(0, 100));
-		let requestBody = {
+		const requestBody = {
 			config: {
 				"encoding": "WEBM_OPUS",
 				"sampleRateHertz": 48000,
@@ -178,7 +178,7 @@ export class Speaker {
 		};
 
 		try {
-			let response = await fetch(Speaker.STT_URL, {
+			const response = await fetch(Speaker.STT_URL, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(requestBody),
@@ -189,17 +189,17 @@ export class Speaker {
 
 			if (!response.ok) {
 				// Get raw response for debugging
-				let errorText = await response.text();
+				const errorText = await response.text();
 				console.error("Speech-to-text error response:", errorText);
 				this.showRecError("Speech-to-text error response:" + errorText);
 				throw new Error(`HTTP error! Status: ${response.status}`);
 			}
 
-			let data = await response.json();
+			const data = await response.json();
 			// console.log("Speech to text result:", data);
 
 			if (data.results) {
-				let inputText = data.results.map(result => result.alternatives[0].transcript).join(" ");
+				const inputText = data.results.map(result => result.alternatives[0].transcript).join(" ");
 				// console.log("Recognized Speech: " + inputText);
 				this.getPinyin(text, inputText);
 			} else {
@@ -216,21 +216,21 @@ export class Speaker {
 	 * Gets pinyins using Google's translator for comparing 
 	 */
 	async getPinyin(text, inputText) {
-		let encodedText = encodeURIComponent(text);
-		let encodedInputText = encodeURIComponent(inputText);
-		let urlText = Speaker.TRANSLATER_URL + encodedText;
-		let urlInputText = Speaker.TRANSLATER_URL + encodedInputText;
+		const encodedText = encodeURIComponent(text);
+		const encodedInputText = encodeURIComponent(inputText);
+		const urlText = Speaker.TRANSLATER_URL + encodedText;
+		const urlInputText = Speaker.TRANSLATER_URL + encodedInputText;
 
-		let response = await fetch(urlText);
-		let data = await response.json();
-		let textPinyin = data[0].map(sentence => sentence[3]).join(" ");
+		const response = await fetch(urlText);
+		const data = await response.json();
+		const textPinyin = data[0].map(sentence => sentence[3]).join(" ");
 
 		response = await fetch(urlInputText);
 		data = await response.json();
-		let inputTextPinyin = data[0].map(sentence => sentence[3]).join(" ");
+		const inputTextPinyin = data[0].map(sentence => sentence[3]).join(" ");
 		// console.log("pinyinText, pinyinInputText:[" + textPinyin + '], [' + inputTextPinyin + ']');
 
-		let pinyin = {
+		const pinyin = {
 			'text': text,
 			'textPinyin': textPinyin.trim(),
 			'inputText': inputText,
@@ -245,10 +245,10 @@ export class Speaker {
 	 */
 	checkPinyin(pinyin) {
 		// check tones
-		let textPinyin = this.removePuntuciation(pinyin.textPinyin);
-		let inputTextPinyin = this.removePuntuciation(pinyin.inputTextPinyin);
-		let textPinyinToneless = this.removeTones(textPinyin);
-		let inputTextPinyinToneless = this.removeTones(inputTextPinyin);
+		const textPinyin = this.removePuntuciation(pinyin.textPinyin);
+		const inputTextPinyin = this.removePuntuciation(pinyin.inputTextPinyin);
+		const textPinyinToneless = this.removeTones(textPinyin);
+		const inputTextPinyinToneless = this.removeTones(inputTextPinyin);
 		let status;
 		if (textPinyin.localeCompare(inputTextPinyin, undefined, { sensitivity: 'accent' }) === 0) {
 			status = 'good';

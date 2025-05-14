@@ -9,9 +9,9 @@ export class AppUtils {
   * Checks the device is a mobile device (iPhone or Android phone)
   */
   static isMobile() {
-    let userAgent = navigator.userAgent.toLowerCase();
-    let isTouch = 'ontouchstart' in window;
-    let width = window.innerWidth;
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isTouch = 'ontouchstart' in window;
+    const width = window.innerWidth;
 
     let isMobile = ((/iphone|ipad|ipod/.test(userAgent)
       || /android/.test(userAgent)
@@ -22,9 +22,9 @@ export class AppUtils {
   }
 
   static isIpadPro() {
-    let width = window.screen.width;
-    let height = window.screen.height;
-    let pixelRatio = window.devicePixelRatio;
+    const width = window.screen.width;
+    const height = window.screen.height;
+    const pixelRatio = window.devicePixelRatio;
 
     // 12.9" iPad Pro
     // 11" iPad Pro
@@ -45,8 +45,8 @@ export class AppUtils {
    * @returns
    */
   static buildHash(bookId) {
-    let article = AllBooks.getCurrentArticle();
-    let hash = '#' + bookId + '/' + article.categoryId + '/' + article.articleId;
+    const article = AllBooks.getCurrentArticle();
+    const hash = '#' + bookId + '/' + article.categoryId + '/' + article.articleId;
     return hash;
   }
 }
