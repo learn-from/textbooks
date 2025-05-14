@@ -20,15 +20,6 @@ export class Speaker {
 	}
 
 	/**
-	 * Initializes the player and speaker after the DOM is loaded (App.js)
-	 * @returns
-	 */
-	static initAudioPlayer() {
-		document.addEventListener('mouseup', Speaker.sayHighlighted);
-		document.addEventListener('keyup', Speaker.sayHighlighted);
-	}
-
-	/**
 	 * If some text is highlighted in article-text element, say it.
 	 */
 	static sayHighlighted() {
