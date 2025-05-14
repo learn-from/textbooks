@@ -25,15 +25,14 @@ export class Speaker {
 	static sayHighlighted() {
 		let selection = window.getSelection();
 		let selectedText = selection.toString();
-		if (selectedText == null || selectedText.length == 0) {
-			return;
-		}
+
+		if (!selectedText) return;
 
 		const speaker = Speaker.getInstance();
 		speaker.openModal(selectedText);
 
 		// Check if the selection is within the phrase or sentence element
-		let selectedElement = selection.anchorNode.parentNode;
+		let selectedElement = selection.anchorNode?.parentNode;
 		let article = document.getElementsByClassName('article-text')[0];
 
 		if (selectedElement === article || article.contains(selectedElement)) {

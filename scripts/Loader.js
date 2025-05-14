@@ -2,6 +2,7 @@
 import { AllBooks } from './AllBooks.js';
 import { Footer } from './Footer.js';
 import { Speaker } from './Speaker.js';
+import { AppUtils } from './AppUtils.js';
 
 export class Loader {
 
@@ -55,19 +56,19 @@ export class Loader {
    */
   async loadHeader() {
 
-    let pageName = AllBooks.getCurrentArticle().bookId;
-    let headerName = 'htmls/book-header.html';
+    const pageName = AllBooks.getCurrentArticle().bookId;
+    const headerName = 'htmls/book-header.html';
     if (pageName == 'home') {
       headerName = 'htmls/home-header.html';
     }
 
-    let header = document.getElementById("header");
+    const header = document.getElementById("header");
     await fetch(headerName)
       .then(response => response.text())
       .then(data => header.innerHTML = data)
       .catch(error => console.error("Error loading header:", error));
 
-    let desc = document.getElementById('book-desc');
+    const desc = document.getElementById('book-desc');
     desc.textContent = AllBooks.findBookDesc(pageName);
   }
 
@@ -77,8 +78,8 @@ export class Loader {
    */
   async loadContent() {
     const loader = Loader.getInstance();
-    let article = AllBooks.findArticle();
-    let textUrl = article.textUrl;
+    const article = AllBooks.findArticle();
+    const textUrl = article.textUrl;
     let content = document.getElementById("content");
     try {
       await fetch(textUrl)
@@ -97,7 +98,7 @@ export class Loader {
    */
   async loadPlayer() {
 
-    let pageName = 'htmls/voice.html';
+    const pageName = 'htmls/voice.html';
     let modal = document.getElementById("my-voice");
     try {
       await fetch(pageName)
@@ -111,6 +112,10 @@ export class Loader {
     // add some event handlers to the modal element
     document.addEventListener('mouseup', Speaker.sayHighlighted);
     document.addEventListener('keyup', Speaker.sayHighlighted);
+    if (AppUtils.isMobile()) {
+      document.addEventListener('touchend', Speaker.sayHighlighted);
+      document.addEventListener('selectionchange', Speaker.sayHighlighted);
+    }
 
     // Close the modal when the user clicks the "x"
     let span = document.getElementById("close-modal");
@@ -207,8 +212,8 @@ export class Loader {
    * @returns 
    */
   setCurrentArticle() {
-    let hash = window.location.hash.replace("#", "") || 'home';
-    let names = hash.split('/');
+    const hash = window.location.hash.replace("#", "") || 'home';
+    const names = hash.split('/');
     let currentArticle = AllBooks.getCurrentArticle();
     switch (names.length) {
       case 1:

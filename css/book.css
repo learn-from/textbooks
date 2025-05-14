@@ -33,7 +33,6 @@ div.article {
 
 div.article-text {
 	width: 98%;
-	/* float: Left; */
 	margin-right: 2%;
 	margin-left: 2%;
 	font-size: 18px;
@@ -45,7 +44,6 @@ div.article-text {
 
 div.article-toc {
 	width: 98%;
-	/* float: Left; */
 	margin-left: 6%;
 	font-size: 16px;
 	text-indent: 32px;
@@ -182,5 +180,8 @@ iframe.player {
 		font-family: KaiTi;
 		color: black;
 		border: 0;
+		-webkit-user-select: text;
+		user-select: text;
+		-webkit-touch-callout: default;
 	}
 }
