@@ -16,13 +16,10 @@
   <link href='css/landing.css' rel='stylesheet' />
   <link href='css/book.css' rel='stylesheet' />
   <link href='css/sidebar.css' rel='stylesheet' />
+  <link href='css/speaker.css' rel='stylesheet' />
 </head>
 
 <body>
-  <!-- 
-  TODO:
-  Mobile divices
-  -->
   <!-- dynamically loaded page header -->
   <div id="header" class="header"></div>
 
@@ -33,14 +30,11 @@
     <!-- dynamically loaded book index -->
     <div id="sidebar" class="sidebar">
       <div id='book-index'></div>
-      <div id="audio-player" class="audio-player">
-        <audio id="text-reader" controls class='text-reader'>
-          <source src="" type="audio/mpeg" />
-        </audio>
-        <p id='reader-msg' class="reader-msg">Highlight Text to Speak</p>
-      </div>
     </div>
   </div>
+
+  <!-- Text to speech and speech to text. Dynamically loaded -->
+  <div id="my-voice" class="card my-voice"></div>
 
   <!-- to top button -->
   <button id="topBtn" title="Go to top">^</button>

@@ -1,0 +1,38 @@
+<!-- A pop-up window to play audio, practice pronunciation with 
+   Google's text-to-speech and speech-to-text servies -->
+<div class="voice-content">
+    <div class="card-header">
+        Listening & Speaking <span id='close-modal' class="close-modal">&times;</span>
+    </div>
+    <div class="card-body">
+        <p id="highlighted-text" class="sentence">选择的文字</p>
+
+        <div id="audio-player" class="audio-player">
+            <audio id="text-reader" controls class='text-reader'>
+                <source src="" type="audio/mpeg" />
+            </audio>
+        </div>
+
+        <!-- This element is for getting voice and check pronunciation -->
+        <table id='speech-check' class="speech-check">
+            <tbody>
+                <tr>
+                    <td id='speech-sign-card' class='speech-sign-card'>
+                        <img id='recording' class="recording" src="images/sites/voice-recognization.jpg" />
+                    </td>
+                    <td id='recognization' class='speech-check-card'>
+                        <p>
+                            <span id="input-text" class="sentence">语音识别（不太准确）</span><br>
+                            <span id="input-pinyin" class="pinyin">Yǔyīn shìbié</span>
+                        </p>
+                        <p id="rec-error" class='error-message'></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <span class="fa-solid fa-microphone microphone" onclick="Speaker.speechCheck()"></span>
+        Read aloud in normal speed.
+    </div>
+</div>

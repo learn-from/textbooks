@@ -1,6 +1,7 @@
 
 import { AllBooks } from './AllBooks.js';
 import { Footer } from './Footer.js';
+import { Speaker } from './Speaker.js';
 
 export class Loader {
 
@@ -18,14 +19,12 @@ export class Loader {
    * Loads header, sidebar and content dynamically according to the value of window.location.hash.
    */
   static async loadPage() {
-
     const loader = Loader.getInstance();
-
-    loader.setCurrentArticle();
-
+    loader.setCurrentArticle()
     try {
       await loader.loadHeader();
       await loader.loadContent();
+      await loader.loadPlayer();
     } catch (err) {
       console.error("Error loading a content page:", err);
     }
@@ -91,6 +90,40 @@ export class Loader {
     } catch (err) {
       await this.loadErrorPage(content, err);
     }
+  }
+
+  /**
+   * Loads a modal element as a pop-up window for audio player and voice recognization.
+   */
+  async loadPlayer() {
+
+    let pageName = 'htmls/voice.html';
+    let modal = document.getElementById("my-voice");
+    try {
+      await fetch(pageName)
+        .then(response => response.text())
+        .then(data => modal.innerHTML = data)
+        .catch(error => console.error("Error loading modal:", error));
+    } catch (err) {
+      await this.loadErrorPage(modal, err);
+    }
+
+    // add some event handlers to the modal element
+    document.addEventListener('mouseup', Speaker.sayHighlighted);
+    document.addEventListener('keyup', Speaker.sayHighlighted);
+
+    // Close the modal when the user clicks the "x"
+    let span = document.getElementById("close-modal");
+    span.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    // Close if clicked outside the modal content
+    window.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
   }
 
   /**
