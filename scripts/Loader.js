@@ -7,6 +7,8 @@ import { AppUtils } from './AppUtils.js';
 export class Loader {
 
   constructor() {
+    this.touchStartY = 0;
+    this.touchEndY = 0;
   }
 
   static getInstance() {
@@ -57,7 +59,7 @@ export class Loader {
   async loadHeader() {
 
     const pageName = AllBooks.getCurrentArticle().bookId;
-    const headerName = 'htmls/book-header.html';
+    let headerName = 'htmls/book-header.html';
     if (pageName == 'home') {
       headerName = 'htmls/home-header.html';
     }
@@ -77,10 +79,12 @@ export class Loader {
    * @returns 
    */
   async loadContent() {
+    
     const loader = Loader.getInstance();
     const article = AllBooks.findArticle();
     const textUrl = article.textUrl;
     let content = document.getElementById("content");
+
     try {
       await fetch(textUrl)
         .then(response => response.text())
@@ -97,7 +101,7 @@ export class Loader {
    * Loads a modal element as a pop-up window for audio player and voice recognization.
    */
   async loadPlayer() {
-
+    const loader = Loader.getInstance();
     const pageName = 'htmls/voice.html';
     let modal = document.getElementById("my-voice");
     try {
@@ -111,8 +115,24 @@ export class Loader {
 
     // add some event handlers to the modal element
     if (AppUtils.isMobile()) {
-      document.addEventListener('touchend', Speaker.sayHighlighted);
-      document.addEventListener('selectionchange', Speaker.sayHighlighted);
+      // document.addEventListener('touchend', Speaker.sayHighlighted);
+      // document.addEventListener('selectionchange', Speaker.sayHighlighted);
+      const selectionHeight = 50; // a user is able to highlight 2-3 lines of texts
+      const selectionLength = 100; // a user is able to highlight upto 100 characters
+      document.addEventListener('touchstart', (e) => {
+        loader.touchStartY = e.touches[0].clientY;
+      });
+
+      document.addEventListener('touchend', (e) => {
+        loader.touchEndY = e.changedTouches[0].clientY;
+        if (Math.abs(loader.touchEndY - loader.touchStartY) < selectionHeight) {
+          const selection = window.getSelection();
+          const selectedText = selection.toString().trim();
+          if (selectedText.length > 0 && selectedText.length < selectionLength) {
+            Speaker.sayHighlighted();
+          }
+        }
+      });
     } else {
       document.addEventListener('mouseup', Speaker.sayHighlighted);
       document.addEventListener('keyup', Speaker.sayHighlighted);

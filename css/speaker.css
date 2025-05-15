@@ -71,6 +71,22 @@ p.reader-msg {
 
 .speech-check-card {
 	width: 85%;
+	text-align: left;
+	text-indent: 0;
+}
+
+.sentence {
+	font-family: KaiTi;
+	font-size: 16px;
+	color: darkgreen;
+	text-align: left;
+	text-indent: 32px;
+}
+
+.reconized {
+	font-family: KaiTi;
+	font-size: 16px;
+	color: darkgreen;
 }
 
 .pinyin {
@@ -78,12 +94,12 @@ p.reader-msg {
 	font-size: 16px;
 }
 
-.sentence {
-	font-family: KaiTi;
-	font-size: 16px;
+.error-message {
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 14px;
+	text-indent: 0px;
+	margin-top: 6px;
 	color: brown;
-	text-align: left;
-	text-indent: 32px;
 }
 
 .microphone {

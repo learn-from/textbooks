@@ -21,15 +21,13 @@
                         <img id='recording' class="recording" src="images/sites/voice-recognization.jpg" />
                     </td>
                     <td id='recognization' class='speech-check-card'>
-                        <p>
-                            <span id="input-text" class="sentence">语音识别（不太准确）</span><br>
-                            <span id="input-pinyin" class="pinyin">Yǔyīn shìbié</span>
-                        </p>
-                        <p id="rec-error" class='error-message'></p>
+                        <span id="input-text" class="reconized">语音识别（不太准确）</span><br>
+                        <span id="input-pinyin" class="pinyin">Yǔyīn shìbié</span>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <p id="voice-error" class='error-message'></p>
     </div>
     <div class="card-footer">
         <span class="fa-solid fa-microphone microphone" onclick="Speaker.speechCheck()"></span>

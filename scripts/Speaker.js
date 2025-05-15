@@ -140,7 +140,7 @@ export class Speaker {
 			}, waitTime);
 		} catch (error) {
 			console.error("Error accessing microphone:", error);
-			this.showRecError("Error accessing microphone: " + error.errorText);
+			this.showError("Error accessing microphone: " + error.errorText);
 		}
 	}
 
@@ -191,7 +191,7 @@ export class Speaker {
 				// Get raw response for debugging
 				const errorText = await response.text();
 				console.error("Speech-to-text error response:", errorText);
-				this.showRecError("Speech-to-text error response:" + errorText);
+				this.showError("Speech-to-text error response:" + errorText);
 				throw new Error(`HTTP error! Status: ${response.status}`);
 			}
 
@@ -204,11 +204,11 @@ export class Speaker {
 				this.getPinyin(text, inputText);
 			} else {
 				console.error("No speech detected!");
-				this.showRecError("No speech detected, try again and speak louder.");
+				this.showError("No speech detected, try again and speak louder.");
 			}
 		} catch (error) {
 			console.error("Error transcribing audio:", error);
-			this.showRecError("Speech-to-text error transcribing audio:" + error.errorText);
+			this.showError("Speech-to-text error transcribing audio:" + error.errorText);
 		}
 	}
 
@@ -216,14 +216,15 @@ export class Speaker {
 	 * Gets pinyins using Google's translator for comparing 
 	 */
 	async getPinyin(text, inputText) {
+		console.log("text, recognized Text", text, inputText);
 		const encodedText = encodeURIComponent(text);
 		const encodedInputText = encodeURIComponent(inputText);
-		const urlText = Speaker.TRANSLATER_URL + encodedText;
-		const urlInputText = Speaker.TRANSLATER_URL + encodedInputText;
+		let urlText = Speaker.TRANSLATER_URL + encodedText;
+		let urlInputText = Speaker.TRANSLATER_URL + encodedInputText;
 
-		const response = await fetch(urlText);
-		const data = await response.json();
-		const textPinyin = data[0].map(sentence => sentence[3]).join(" ");
+		let response = await fetch(urlText);
+		let data = await response.json();
+		let textPinyin = data[0].map(sentence => sentence[3]).join(" ");
 
 		response = await fetch(urlInputText);
 		data = await response.json();
@@ -262,7 +263,7 @@ export class Speaker {
 		// document.getElementById('recognization').style.display = 'block'
 		document.getElementById('input-text').textContent = pinyin.inputText;
 		document.getElementById('input-pinyin').textContent = pinyin.inputTextPinyin;
-		document.getElementById('rec-error').textContent = '';
+		document.getElementById('voice-error').textContent = '';
 	}
 
 	/**
@@ -301,7 +302,7 @@ export class Speaker {
 		text.textContent = selectedText;
 		document.getElementById('input-text').textContent = '语音识别（不太准确）';
 		document.getElementById('input-pinyin').textContent = 'Yǔyīn shìbié';
-		document.getElementById('rec-error').textContent = '';
+		document.getElementById('voice-error').textContent = '';
 	}
 
 	/**
@@ -325,6 +326,16 @@ export class Speaker {
 				break;
 		}
 		img.src = 'images/sites/' + image;
+	}
+
+	showError(message) {
+		let error = document.getElementById('voice-error');
+		if (message == null || message.length == 0) {
+			error.style.display = 'none';
+		} else {
+			error.style.display = 'block';
+		}
+		error.textContent = message;
 	}
 }
 
