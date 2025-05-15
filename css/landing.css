@@ -19,7 +19,7 @@ p.site-title {
 	font-size: 48px;
 	font-weight: bold;
 	color: darkgreen;
-	margin-left: 30px;
+	margin-left: 80px;
 }
 
 p.book-desc {
@@ -32,7 +32,7 @@ p.book-desc {
 .menu-bar {
 	font-family: KaiTi;
 	font-size: 16px;
-	margin-left: 160px;
+	margin-left: 200px;
 	margin-top: -20px;
 }
 

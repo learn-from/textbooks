@@ -73,6 +73,7 @@ p.reader-msg {
 	width: 85%;
 	text-align: left;
 	text-indent: 0;
+	padding-left: 4px;
 }
 
 .sentence {
@@ -103,5 +104,8 @@ p.reader-msg {
 }
 
 .microphone {
+	color: blue;
+	font-size: 20px;
+	padding-right: 4px;
 	cursor: pointer;
 }

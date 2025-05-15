@@ -23,7 +23,7 @@ export class Speaker {
 	 * If some text is highlighted in article-text element, say it.
 	 */
 	static sayHighlighted() {
-		const selectionLength = 65; // a user is able to highlight upto 65 Chinese characters (15 - 16 seconds)
+		const selectionLength = 65; // a user is able to highlight up to 65 Chinese characters (15 - 16 seconds)
 		const selection = window.getSelection();
 		const selectedText = selection.toString();
 		// console.log("selected text length:", selectedText.length);
@@ -31,7 +31,7 @@ export class Speaker {
 		if (!selectedText || selectedText.length > selectionLength) return;
 
 		const speaker = Speaker.getInstance();
-		speaker.openModal(selectedText);
+		speaker.openModal(selectedText, 'init');
 
 		// Check if the selection is within the phrase or sentence element
 		const selectedElement = selection.anchorNode?.parentNode;
@@ -99,7 +99,7 @@ export class Speaker {
 		const speaker = Speaker.getInstance();
 		const tag = document.getElementById('highlighted-text');
 		const text = tag.textContent;
-		speaker.openModal(text);
+		speaker.openModal(text, 'record');
 		speaker.recognizeSpeech(text);
 	}
 
@@ -297,7 +297,7 @@ export class Speaker {
 	 * Opens a Modal element as a pop-up window to play audio and recgnize voice.
 	 * @param {} selectedText 
 	 */
-	openModal(selectedText) {
+	openModal(selectedText, status) {
 		let modal = document.getElementById("my-voice");
 		let text = document.getElementById('highlighted-text');
 		modal.style.display = "block";
@@ -305,6 +305,7 @@ export class Speaker {
 		document.getElementById('input-text').textContent = '语音识别（不太准确）';
 		document.getElementById('input-pinyin').textContent = 'Yǔyīn shìbié';
 		document.getElementById('voice-error').textContent = '';
+		this.showGreetingImage(status);
 	}
 
 	/**
@@ -322,6 +323,9 @@ export class Speaker {
 				break;
 			case 'okay':
 				image = 'okay.jpg';
+				break;
+			case 'record':
+				image = 'recording.jpg';
 				break;
 			default:
 				image = 'voice-recognization.jpg';
