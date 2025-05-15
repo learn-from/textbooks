@@ -27,7 +27,9 @@ export class Loader {
     try {
       await loader.loadHeader();
       await loader.loadContent();
-      await loader.loadPlayer();
+      if (!AppUtils.isMobile()) {
+        await loader.loadPlayer();
+      }
     } catch (err) {
       console.error("Error loading a content page:", err);
     }
@@ -79,7 +81,7 @@ export class Loader {
    * @returns 
    */
   async loadContent() {
-    
+
     const loader = Loader.getInstance();
     const article = AllBooks.findArticle();
     const textUrl = article.textUrl;
@@ -115,8 +117,11 @@ export class Loader {
 
     // add some event handlers to the modal element
     if (AppUtils.isMobile()) {
-      // document.addEventListener('touchend', Speaker.sayHighlighted);
-      // document.addEventListener('selectionchange', Speaker.sayHighlighted);
+      // pretty buggy running this on a mobile device
+      // - conflict with device's touchstart and touchend events
+      // - highlight unexpected area 
+      // - etc.
+      // turn it off for mobile devices.
       const selectionHeight = 50; // a user is able to highlight 2-3 lines of texts
       const selectionLength = 100; // a user is able to highlight upto 100 characters
       document.addEventListener('touchstart', (e) => {
@@ -134,6 +139,7 @@ export class Loader {
         }
       });
     } else {
+      // desktop: those event listeners work well.
       document.addEventListener('mouseup', Speaker.sayHighlighted);
       document.addEventListener('keyup', Speaker.sayHighlighted);
     }

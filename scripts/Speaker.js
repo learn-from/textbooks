@@ -23,10 +23,12 @@ export class Speaker {
 	 * If some text is highlighted in article-text element, say it.
 	 */
 	static sayHighlighted() {
+		const selectionLength = 65; // a user is able to highlight upto 65 Chinese characters (15 - 16 seconds)
 		const selection = window.getSelection();
 		const selectedText = selection.toString();
+		// console.log("selected text length:", selectedText.length);
 
-		if (!selectedText) return;
+		if (!selectedText || selectedText.length > selectionLength) return;
 
 		const speaker = Speaker.getInstance();
 		speaker.openModal(selectedText);
@@ -216,7 +218,7 @@ export class Speaker {
 	 * Gets pinyins using Google's translator for comparing 
 	 */
 	async getPinyin(text, inputText) {
-		console.log("text, recognized Text", text, inputText);
+		// console.log("text, recognized text:", text, inputText);
 		const encodedText = encodeURIComponent(text);
 		const encodedInputText = encodeURIComponent(inputText);
 		let urlText = Speaker.TRANSLATER_URL + encodedText;
@@ -229,7 +231,7 @@ export class Speaker {
 		response = await fetch(urlInputText);
 		data = await response.json();
 		const inputTextPinyin = data[0].map(sentence => sentence[3]).join(" ");
-		// console.log("pinyinText, pinyinInputText:[" + textPinyin + '], [' + inputTextPinyin + ']');
+		// console.log("pinyin, recognized pinyin:", textPinyin, inputTextPinyin);
 
 		const pinyin = {
 			'text': text,
