@@ -9,7 +9,7 @@
 
         <div id="audio-player" class="audio-player">
             <audio id="text-reader" controls class='text-reader'>
-                <source type="audio/mpeg" preload="metadata" src=""/>
+                <source type="audio/mpeg" preload="metadata" src="" />
             </audio>
         </div>
 
@@ -25,12 +25,23 @@
                         <span id="input-pinyin" class="pinyin">Yǔyīn shìbié</span>
                     </td>
                 </tr>
+                <tr>
+                    <td class='speech-sign-card'>
+                        <span id="timestamp" class="timestamp"></span>
+                    </td>
+                    <td id='download' class='speech-check-card no-show'>
+                        <audio id="record-reader" controls controlsList="nodownload" class='record-reader'>
+                            <source type="audio/mpeg" preload="metadata" src="" />
+                        </audio>
+                        <span id="audio-link" class="pinyin">abc</span>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <p id="voice-error" class='error-message'></p>
     </div>
     <div class="card-footer">
         <span class="fa-solid fa-microphone microphone" onclick="Speaker.speechCheck()"></span>
-        Read aloud in normal speed.
+        Click Mic and read aloud in normal speed.
     </div>
 </div>

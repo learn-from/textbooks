@@ -123,11 +123,27 @@ export class Speaker {
 			};
 
 			mediaRecorder.onstop = async () => {
-				// Convert audio to Base64
-				const audioBlob = new Blob(audioChunks, { type: 'audio/ogg; codecs=opus' });
-				const base64Audio = await this.convertBlobToBase64(audioBlob);
+				// Create an audio blob for saving to a file (only audio/webm works now)
+				const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+				// console.log("Blob size, type:", audioBlob.size, audioBlob.type);
 
-				// Send audio to Google Speech-to-Text API
+				// create a "save" button
+				const audioUrl = URL.createObjectURL(audioBlob);
+				let player = document.getElementById('record-reader');
+				player.src = audioUrl;
+
+				const today = new Date();
+				const now = '_' + (today.getMonth() + 1) + '_' + today.getDate() + '_' + today.getHours() + '_' + today.getMinutes();
+				const downloadLink = document.createElement('a');
+				downloadLink.href = audioUrl;
+				downloadLink.download = 'recording' + now + '.webm';
+				downloadLink.textContent = '⤓';
+				let audioLink = document.getElementById('audio-link');
+				audioLink.innerHTML = '';
+				audioLink.appendChild(downloadLink);
+
+				// Convert audio to Base64 to send the audio clip to Google Speech-to-Text API
+				const base64Audio = await this.convertBlobToBase64(audioBlob);
 				this.transcribeAudio(text, base64Audio);
 			};
 
@@ -247,12 +263,13 @@ export class Speaker {
 	 * Exactly same or there are some wrong tones.
 	 */
 	checkPinyin(pinyin) {
-		// check tones
+
 		const textPinyin = this.removePuntuciation(pinyin.textPinyin);
 		const inputTextPinyin = this.removePuntuciation(pinyin.inputTextPinyin);
 		const textPinyinToneless = this.removeTones(textPinyin);
 		const inputTextPinyinToneless = this.removeTones(inputTextPinyin);
 		let status;
+
 		if (textPinyin.localeCompare(inputTextPinyin, undefined, { sensitivity: 'accent' }) === 0) {
 			status = 'good';
 		} else if (textPinyinToneless.localeCompare(inputTextPinyinToneless, undefined, { sensitivity: 'accent' }) === 0) {
@@ -262,7 +279,7 @@ export class Speaker {
 		}
 		this.showGreetingImage(status);
 
-		// document.getElementById('recognization').style.display = 'block'
+		document.getElementById('download').style.display = 'block'
 		document.getElementById('input-text').textContent = pinyin.inputText;
 		document.getElementById('input-pinyin').textContent = pinyin.inputTextPinyin;
 		document.getElementById('voice-error').textContent = '';
@@ -305,6 +322,8 @@ export class Speaker {
 		document.getElementById('input-text').textContent = '语音识别（不太准确）';
 		document.getElementById('input-pinyin').textContent = 'Yǔyīn shìbié';
 		document.getElementById('voice-error').textContent = '';
+		document.getElementById('timestamp').textContent = '';
+		document.getElementById('download').style.display = 'none';
 		this.showGreetingImage(status);
 	}
 
@@ -314,6 +333,7 @@ export class Speaker {
 	showGreetingImage(status) {
 		let img = document.getElementById('recording');
 		let image;
+		let showTime = true;
 		switch (status) {
 			case 'good':
 				image = 'two-thumbs-up.jpg';
@@ -326,12 +346,21 @@ export class Speaker {
 				break;
 			case 'record':
 				image = 'recording.jpg';
+				showTime = false;
 				break;
 			default:
 				image = 'voice-recognization.jpg';
+				showTime = false;
 				break;
 		}
 		img.src = 'images/sites/' + image;
+
+		if (showTime) {
+			const today = new Date();
+			const now = (today.getMonth() + 1) + '/' + today.getDate() + ' ' + today.getHours() + ':' + today.getMinutes();
+			let time = document.getElementById('timestamp');
+			time.textContent = now;
+		}
 	}
 
 	showError(message) {
