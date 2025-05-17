@@ -137,7 +137,8 @@ export class Speaker {
 				const downloadLink = document.createElement('a');
 				downloadLink.href = audioUrl;
 				downloadLink.download = 'recording' + now + '.webm';
-				downloadLink.textContent = '⤓';
+				downloadLink.title = 'Download the recorded voice';
+				downloadLink.innerHTML = '<i class="fa-solid fa-download"></i>';
 				let audioLink = document.getElementById('audio-link');
 				audioLink.innerHTML = '';
 				audioLink.appendChild(downloadLink);
