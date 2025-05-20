@@ -27,9 +27,10 @@ export class Loader {
     try {
       await loader.loadHeader();
       await loader.loadContent();
-      if (!AppUtils.isMobile()) {
-        await loader.loadPlayer();
-      }
+      await loader.loadPlayer();
+      // if (!AppUtils.isMobile()) {
+      //   await loader.loadPlayer();
+      // }
     } catch (err) {
       console.error("Error loading a content page:", err);
     }
@@ -105,6 +106,13 @@ export class Loader {
   async loadPlayer() {
     const loader = Loader.getInstance();
     const pageName = 'htmls/voice.html';
+
+    // load a modal element only for the 'article-text' class
+    let articles = document.getElementsByClassName('article-text');
+    if (!articles || articles.length == 0) {
+      return;
+    }
+    let article = articles[0];
     let modal = document.getElementById("my-voice");
     try {
       await fetch(pageName)
@@ -117,31 +125,42 @@ export class Loader {
 
     // add some event handlers to the modal element
     if (AppUtils.isMobile()) {
-      // pretty buggy running this on a mobile device
-      // - conflict with device's touchstart and touchend events
-      // - highlight unexpected area 
-      // - etc.
-      // turn it off for mobile devices.
-      const selectionHeight = 50; // a user is able to highlight 2-3 lines of texts
-      const selectionLength = 100; // a user is able to highlight upto 100 characters
-      document.addEventListener('touchstart', (e) => {
-        loader.touchStartY = e.touches[0].clientY;
-      });
+      // const selectionHeight = 50; // a user is able to highlight 2-3 lines of texts
+      article.addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        console.log('touch start event');
+        // loader.touchStartY = event.touches[0].clientY;
+      }, { passive: false });
 
-      document.addEventListener('touchend', (e) => {
-        loader.touchEndY = e.changedTouches[0].clientY;
-        if (Math.abs(loader.touchEndY - loader.touchStartY) < selectionHeight) {
+      article.addEventListener('touchend', (event) => {
+        event.preventDefault();
+        console.log('touch end event');
+        // loader.touchEndY = event.changedTouches[0].clientY;
+        // if (Math.abs(loader.touchEndY - loader.touchStartY) < selectionHeight) {
+          setTimeout(() => {
+            const selection = window.getSelection();
+            const selectedText = selection.toString().trim();
+            if (selectedText.length > 1) {
+              Speaker.sayHighlighted();
+            }
+          }, 100);
+        // }
+      }, { passive: false });
+
+      article.addEventListener('selectionchange', (event) => {
+        console.log('selectionchange');
+        // loader.touchEndY = event.changedTouches[0].clientY;
+        // if (Math.abs(loader.touchEndY - loader.touchStartY) < selectionHeight) {
           const selection = window.getSelection();
           const selectedText = selection.toString().trim();
-          if (selectedText.length > 0 && selectedText.length < selectionLength) {
+          if (selectedText.length > 1) {
             Speaker.sayHighlighted();
           }
-        }
+        // }
       });
     } else {
-      // desktop: those event listeners work well.
-      document.addEventListener('mouseup', Speaker.sayHighlighted);
-      document.addEventListener('keyup', Speaker.sayHighlighted);
+      article.addEventListener('mouseup', Speaker.sayHighlighted);
+      article.addEventListener('keyup', Speaker.sayHighlighted);
     }
 
     // Close the modal when the user clicks the "x"
