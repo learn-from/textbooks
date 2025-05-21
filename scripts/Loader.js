@@ -101,7 +101,6 @@ export class Loader {
    * Loads a modal element as a pop-up window for audio player and voice recognization.
    */
   async loadPlayer() {
-    const loader = Loader.getInstance();
     const pageName = 'htmls/voice.html';
 
     // load a modal element only for the 'article-text' class
@@ -127,27 +126,19 @@ export class Loader {
       });
 
       article.addEventListener('touchend', (event) => {
-        console.log('touch end event');
-        setTimeout(() => {
-          const selection = window.getSelection();
-          const selectedText = selection.toString().trim();
-          if (selectedText.length > 1) {
-            Speaker.sayHighlighted();
-          }
-        }, 50);
+        Speaker.sayHighlighted(event);
       });
 
       article.addEventListener('selectionchange', (event) => {
-        console.log('selectionchange');
-        const selection = window.getSelection();
-        const selectedText = selection.toString().trim();
-        if (selectedText.length > 1) {
-          Speaker.sayHighlighted();
-        }
+        Speaker.sayHighlighted(event);
       });
     } else {
-      article.addEventListener('mouseup', Speaker.sayHighlighted);
-      article.addEventListener('keyup', Speaker.sayHighlighted);
+      article.addEventListener('mouseup', (event) => {
+        Speaker.sayHighlighted(event);
+      });
+      article.addEventListener('keyup', (event) => {
+        Speaker.sayHighlighted(event);
+      });
     }
 
     // Close the modal when the user clicks the "x"

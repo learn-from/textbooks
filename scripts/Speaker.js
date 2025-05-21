@@ -22,24 +22,28 @@ export class Speaker {
 	/**
 	 * If some text is highlighted in article-text element, say it.
 	 */
-	static sayHighlighted() {
-		const selectionLength = 65; // a user is able to highlight up to 65 Chinese characters (15 - 16 seconds)
-		const selection = window.getSelection();
-		const selectedText = selection.toString();
+	static sayHighlighted(event) {
 		// console.log("selected text length:", selectedText.length);
 
-		if (!selectedText || selectedText.length > selectionLength) return;
+		setTimeout(() => {
+			const selectionLength = 65; // a user is able to highlight up to 65 Chinese characters (15 - 16 seconds)
+			const selection = window.getSelection();
+			const selectedText = selection.toString().trim();
+			console.log('handling ', event.type, 'selected text:', selectedText);
 
-		const speaker = Speaker.getInstance();
-		speaker.openModal(selectedText, 'init');
+			if (!selectedText || selectedText.length > selectionLength || selectedText.length < 2) return;
 
-		// Check if the selection is within the phrase or sentence element
-		const selectedElement = selection.anchorNode?.parentNode;
-		const article = document.getElementsByClassName('article-text')[0];
+			const speaker = Speaker.getInstance();
+			speaker.openModal(selectedText, 'init');
 
-		if (selectedElement === article || article.contains(selectedElement)) {
-			speaker.playAudio(selectedText);
-		}
+			// Check if the selection is within the phrase or sentence element
+			const selectedElement = selection.anchorNode?.parentNode;
+			const article = document.getElementsByClassName('article-text')[0];
+
+			if (selectedElement === article || article.contains(selectedElement)) {
+				speaker.playAudio(selectedText);
+			}
+		}, 20);
 	}
 
 	/**
