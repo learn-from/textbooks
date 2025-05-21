@@ -6,10 +6,7 @@ import { AppUtils } from './AppUtils.js';
 
 export class Loader {
 
-  constructor() {
-    this.touchStartY = 0;
-    this.touchEndY = 0;
-  }
+  constructor() { }
 
   static getInstance() {
     if (!Loader._instance) {
@@ -125,38 +122,28 @@ export class Loader {
 
     // add some event handlers to the modal element
     if (AppUtils.isMobile()) {
-      // const selectionHeight = 50; // a user is able to highlight 2-3 lines of texts
       article.addEventListener('touchstart', (event) => {
-        event.preventDefault();
         console.log('touch start event');
-        // loader.touchStartY = event.touches[0].clientY;
-      }, { passive: false });
+      });
 
       article.addEventListener('touchend', (event) => {
-        event.preventDefault();
         console.log('touch end event');
-        // loader.touchEndY = event.changedTouches[0].clientY;
-        // if (Math.abs(loader.touchEndY - loader.touchStartY) < selectionHeight) {
-          setTimeout(() => {
-            const selection = window.getSelection();
-            const selectedText = selection.toString().trim();
-            if (selectedText.length > 1) {
-              Speaker.sayHighlighted();
-            }
-          }, 100);
-        // }
-      }, { passive: false });
-
-      article.addEventListener('selectionchange', (event) => {
-        console.log('selectionchange');
-        // loader.touchEndY = event.changedTouches[0].clientY;
-        // if (Math.abs(loader.touchEndY - loader.touchStartY) < selectionHeight) {
+        setTimeout(() => {
           const selection = window.getSelection();
           const selectedText = selection.toString().trim();
           if (selectedText.length > 1) {
             Speaker.sayHighlighted();
           }
-        // }
+        }, 50);
+      });
+
+      article.addEventListener('selectionchange', (event) => {
+        console.log('selectionchange');
+        const selection = window.getSelection();
+        const selectedText = selection.toString().trim();
+        if (selectedText.length > 1) {
+          Speaker.sayHighlighted();
+        }
       });
     } else {
       article.addEventListener('mouseup', Speaker.sayHighlighted);
