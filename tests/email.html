@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>EmailJS Test</title>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
+  <script type="text/javascript">
+    (function () {
+      emailjs.init({
+        publicKey: "54CdPFBDuE0c3HesF",
+      });
+    })();
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2em;
+    }
+
+    form {
+      max-width: 400px;
+      margin: auto;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      margin-bottom: 1em;
+      padding: 0.5em;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Send Test Email</h2>
+  <form id="email-form">
+    <input type="text" name="from_name" placeholder="Your name" required />
+    <input type="email" name="reply_to" placeholder="Your email" required />
+    <textarea name="message" placeholder="Your message" required></textarea>
+    <button type="submit">Send Email</button>
+  </form>
+
+  <script>
+    // document.addEventListener('DOMContentLoaded', function () {
+    //   emailjs.init("54CdPFBDuE0c3HesF"); // ✅ Your actual public key
+
+      // Call send function AFTER init
+      emailjs.send("service_uqlw5qk", "template_9x150b6", {
+        from_name: "App",
+        message: "Hello! This is another test message.",
+        reply_to: "john@example.com"
+      })
+        .then(function (response) {
+          console.log("SUCCESS!", response.status, response.text);
+        }, function (error) {
+          console.error("FAILED...", error);
+        });
+    // });
+
+    // Handle form submission
+    // document.getElementById("email-form").addEventListener("submit", function (event) {
+    //   event.preventDefault();
+
+
+    /*
+          emailjs.sendForm("service_uqlw5qk", "template_9x150b6", this)
+            .then(function(response) {
+              alert("Email sent successfully!");
+              console.log("SUCCESS!", response.status, response.text);
+            }, function(error) {
+              alert("Failed to send email.");
+              console.error("FAILED...", error);
+            });
+        });
+      */
+  </script>
+
+</body>
+
+</html>

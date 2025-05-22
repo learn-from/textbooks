@@ -1,4 +1,6 @@
 
+import { AppUtils } from './AppUtils.js';
+
 export class Speaker {
 	static APP_KEY = 'AIzaSyAc95QQS_JYEPg8EAa2bERiH4102aeekk0';
 	static TTS_URL = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${Speaker.APP_KEY}`;
@@ -23,26 +25,27 @@ export class Speaker {
 	 * If some text is highlighted in article-text element, say it.
 	 */
 	static sayHighlighted(event) {
-		// console.log("selected text length:", selectedText.length);
-
 		setTimeout(() => {
 			const selectionLength = 65; // a user is able to highlight up to 65 Chinese characters (15 - 16 seconds)
 			const selection = window.getSelection();
 			const selectedText = selection.toString().trim();
-			console.log('handling ', event.type, 'selected text:', selectedText);
+			const message = 'handling ' + event.type + ', the selected text: ' + selectedText;
+			console.log(message);
 
-			if (!selectedText || selectedText.length > selectionLength || selectedText.length < 2) return;
-
-			const speaker = Speaker.getInstance();
-			speaker.openModal(selectedText, 'init');
-
-			// Check if the selection is within the phrase or sentence element
-			const selectedElement = selection.anchorNode?.parentNode;
-			const article = document.getElementsByClassName('article-text')[0];
-
-			if (selectedElement === article || article.contains(selectedElement)) {
+			if (selectedText && selectedText.length < selectionLength && selectedText.length > 1) {
+				const speaker = Speaker.getInstance();
+				speaker.openModal(selectedText, 'init');
 				speaker.playAudio(selectedText);
 			}
+
+			AppUtils.sendEmail(message);
+			// Check if the selection is within the phrase or sentence element
+			// const selectedElement = selection.anchorNode?.parentNode;
+			// const article = document.getElementsByClassName('article-text')[0];
+
+			// if (selectedElement === article || article.contains(selectedElement)) {
+			// 	speaker.playAudio(selectedText);
+			// }
 		}, 20);
 	}
 

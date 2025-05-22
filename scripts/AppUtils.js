@@ -49,4 +49,28 @@ export class AppUtils {
     const hash = '#' + bookId + '/' + article.categoryId + '/' + article.articleId;
     return hash;
   }
+
+  /**
+   * Sends an email using EmailJS service.
+   * @param {*} message 
+   */
+  static sendEmail(message) {
+    if (AppUtils.isMobile()) {
+      const serviceId = 'service_uqlw5qk';
+      const templateId = "template_9x150b6";
+      const from = 'Textbook';
+      const replyTo = "c9@greatwallchineseacademy.org";
+
+      emailjs.send(serviceId, templateId, {
+        from_name: from,
+        message: message,
+        reply_to: replyTo
+      })
+        .then(function (response) {
+          console.log("Sent an email!", response.status, response.text);
+        }, function (error) {
+          console.error("Failed sending an email", error);
+        });
+    }
+  }
 }
