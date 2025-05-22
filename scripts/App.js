@@ -11,3 +11,10 @@ window.addEventListener("DOMContentLoaded", Loader.loadPage);
 window.onscroll = function () { Footer.scrollFunction() };
 const footer = document.getElementById('topBtn');
 footer.addEventListener('click', Footer.toTop);
+
+// initialze the email agint
+(function () {
+    emailjs.init({
+        publicKey: "54CdPFBDuE0c3HesF",
+    });
+})();

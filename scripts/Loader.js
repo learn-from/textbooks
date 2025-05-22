@@ -129,9 +129,10 @@ export class Loader {
         Speaker.sayHighlighted(event);
       });
 
-      article.addEventListener('selectionchange', (event) => {
-        Speaker.sayHighlighted(event);
-      });
+      // The selectionchange event doesn't seem to work well, never gets triggered
+      // article.addEventListener('selectionchange', (event) => {
+      //   Speaker.sayHighlighted(event);
+      // });
     } else {
       article.addEventListener('mouseup', (event) => {
         Speaker.sayHighlighted(event);

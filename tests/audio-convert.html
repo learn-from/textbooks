@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebM to MP3 Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+
+    audio {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    #status {
+      color: #333;
+      margin-top: 10px;
+      max-width: 90%;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>WebM to MP3 Converter</h1>
+  <button id="recordButton">Record WebM (5 seconds)</button>
+  <button id="convertButton" disabled>Convert to MP3</button>
+  <audio id="audioPlayback" controls></audio>
+  <p id="status">Click "Record WebM" to start.</p>
+
+  <!-- Load lamejs from CDN -->
+  <script src="../scripts/lame.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/lamejs@0.1.0/lame.min.js"></script> -->
+  <script>
+    // Check browser support
+    if (!window.MediaRecorder || !window.AudioContext) {
+      document.getElementById('status').textContent = 'Error: MediaRecorder or AudioContext not supported.';
+      document.getElementById('recordButton').disabled = true;
+      document.getElementById('convertButton').disabled = true;
+      // return;
+    }
+
+    const recordButton = document.getElementById('recordButton');
+    const convertButton = document.getElementById('convertButton');
+    const audioPlayback = document.getElementById('audioPlayback');
+    const status = document.getElementById('status');
+    let mediaRecorder = null;
+    let audioChunks = [];
+    let webmBlob = null;
+
+    // Record WebM audio (5 seconds)
+    async function startRecording() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) {
+            audioChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = () => {
+          webmBlob = new Blob(audioChunks, { type: 'audio/webm' });
+          audioPlayback.src = URL.createObjectURL(webmBlob);
+          audioPlayback.play().catch((error) => {
+            status.textContent = 'Error playing WebM: ' + error.message;
+          });
+          stream.getTracks().forEach(track => track.stop());
+          status.textContent = 'WebM recorded. Click "Convert to MP3".';
+          convertButton.disabled = false;
+        };
+
+        mediaRecorder.start();
+        status.textContent = 'Recording WebM...';
+        recordButton.disabled = true;
+
+        setTimeout(() => {
+          if (mediaRecorder && mediaRecorder.state === 'recording') {
+            mediaRecorder.stop();
+            recordButton.disabled = false;
+          }
+        }, 5000);
+      } catch (error) {
+        status.textContent = 'Error accessing microphone: ' + error.message;
+        recordButton.disabled = false;
+      }
+    }
+
+    // Convert WebM to MP3
+    async function convertToMP3() {
+      if (!webmBlob) {
+        status.textContent = 'No WebM audio to convert.';
+        // return;
+      }
+
+      const audioContext = new AudioContext();
+      try {
+        status.textContent = 'Converting to MP3...';
+        convertButton.disabled = true;
+
+        // Create AudioContext to decode WebM
+        const arrayBuffer = await webmBlob.arrayBuffer();
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+        // Get PCM data (mono or stereo)
+        const channelData = audioBuffer.getChannelData(0); // Use first channel (mono)
+        const sampleRate = audioBuffer.sampleRate;
+
+        // Convert to 16-bit PCM for lamejs
+        const samples = new Int16Array(channelData.length);
+        for (let i = 0; i < channelData.length; i++) {
+          samples[i] = Math.max(-1, Math.min(1, channelData[i])) * 32767;
+        }
+
+        // Encode to MP3 using lamejs
+        const mp3Encoder = new lamejs.Mp3Encoder(1, sampleRate, 128); // Mono, 128kbps
+        const mp3Data = [];
+        const blockSize = 1152; // MP3 frame size
+        for (let i = 0; i < samples.length; i += blockSize) {
+          const sampleChunk = samples.subarray(i, i + blockSize);
+          const mp3buf = mp3Encoder.encodeBuffer(sampleChunk);
+          if (mp3buf.length > 0) {
+            mp3Data.push(mp3buf);
+          }
+        }
+        const mp3buf = mp3Encoder.flush();
+        if (mp3buf.length > 0) {
+          mp3Data.push(mp3buf);
+        }
+
+        // Create MP3 Blob
+        const mp3Blob = new Blob(mp3Data, { type: 'audio/mpeg' });
+        const mp3Url = URL.createObjectURL(mp3Blob);
+        audioPlayback.src = mp3Url;
+        audioPlayback.play().catch((error) => {
+          status.textContent = 'Error playing MP3: ' + error.message;
+        });
+
+        // Optional: Provide download link
+        const downloadLink = document.createElement('a');
+        downloadLink.href = mp3Url;
+        downloadLink.download = 'converted_audio.mp3';
+        downloadLink.textContent = 'Download MP3';
+        document.body.appendChild(downloadLink);
+
+        status.textContent = 'Conversion complete. Playing MP3.';
+      } catch (error) {
+        status.textContent = 'Error converting to MP3: ' + error.message;
+        convertButton.disabled = false;
+      } finally {
+        // Only close audioContext if it was created
+        if (audioContext && audioContext.state !== 'closed') {
+          audioContext.close().catch((error) => {
+            console.error('Error closing AudioContext:', error);
+          });
+        }
+        convertButton.disabled = false;
+      }
+    }
+
+    // Event listeners
+    recordButton.addEventListener('click', startRecording);
+    convertButton.addEventListener('click', convertToMP3);
+  </script>
+</body>
+
+</html>

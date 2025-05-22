@@ -7,6 +7,8 @@ export class Speaker {
 	static STT_URL = `https://speech.googleapis.com/v1/speech:recognize?key=${Speaker.APP_KEY}`;
 	static TRANSLATER_URL = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=zh-CN&tl=en&dt=t&dt=rm&q=';
 
+
+
 	constructor() {
 	}
 
@@ -39,13 +41,6 @@ export class Speaker {
 			}
 
 			AppUtils.sendEmail(message);
-			// Check if the selection is within the phrase or sentence element
-			// const selectedElement = selection.anchorNode?.parentNode;
-			// const article = document.getElementsByClassName('article-text')[0];
-
-			// if (selectedElement === article || article.contains(selectedElement)) {
-			// 	speaker.playAudio(selectedText);
-			// }
 		}, 20);
 	}
 
@@ -112,11 +107,12 @@ export class Speaker {
 
 	/** 
 	 * Gets speech from microphone and recognizes it to a text. 
-	 * Recording time: 2.5 characters per second, 4 seconds minumum.
+	 * Recording time: 3 characters per second, 4 seconds minumum.
 	 */
 	async recognizeSpeech(text) {
-		// const speaker = Speaker.getInstance();
-		const waitTime = ((text.length < 3 ? 4 : text.length) / 2.5) * 1000;
+		const speaker = Speaker.getInstance();
+		const waitTime = (text.length < 9 ? 4 : (text.length / 3)) * 1000;
+
 		try {
 			// Get microphone access
 			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -131,27 +127,14 @@ export class Speaker {
 
 			mediaRecorder.onstop = async () => {
 				// Create an audio blob for saving to a file (only audio/webm works now)
-				const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-				// console.log("Blob size, type:", audioBlob.size, audioBlob.type);
+				const webmBlob = new Blob(audioChunks, { type: 'audio/webm' });
+				console.log("Blob size:", webmBlob.size, "type:", webmBlob.type, "rec time:", waitTime/1000);
 
-				// create a "save" button
-				const audioUrl = URL.createObjectURL(audioBlob);
-				let player = document.getElementById('record-reader');
-				player.src = audioUrl;
-
-				const today = new Date();
-				const now = '_' + (today.getMonth() + 1) + '_' + today.getDate() + '_' + today.getHours() + '_' + today.getMinutes();
-				const downloadLink = document.createElement('a');
-				downloadLink.href = audioUrl;
-				downloadLink.download = 'recording' + now + '.webm';
-				downloadLink.title = 'Download the recorded voice';
-				downloadLink.innerHTML = '<i class="fa-solid fa-download"></i>';
-				let audioLink = document.getElementById('audio-link');
-				audioLink.innerHTML = '';
-				audioLink.appendChild(downloadLink);
+				// play the recorded voice and make it downloadable in mp3 format
+				speaker.playRecordedVoice(webmBlob);
 
 				// Convert audio to Base64 to send the audio clip to Google Speech-to-Text API
-				const base64Audio = await this.convertBlobToBase64(audioBlob);
+				const base64Audio = await this.convertBlobToBase64(webmBlob);
 				this.transcribeAudio(text, base64Audio);
 			};
 
@@ -167,6 +150,74 @@ export class Speaker {
 		} catch (error) {
 			console.error("Error accessing microphone:", error);
 			this.showError("Error accessing microphone: " + error.errorText);
+		}
+	}
+
+	/**
+	 * Plays the recorded voice (webm format) and make it downloadable in mp3 format.
+	 * Converts it to mp3 as Safari browser of iOS version doesn't play webm well.
+	 * @param {*} webmBlob 
+	 */
+	async playRecordedVoice(webmBlob) {
+		// Create AudioContext to decode WebM
+		console.log('Converting to MP3...');
+		let audioContext = null;
+		try {
+			audioContext = new AudioContext();
+			const arrayBuffer = await webmBlob.arrayBuffer();
+			const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+			// Get PCM data (mono or stereo)
+			const channelData = audioBuffer.getChannelData(0); // Use first channel (mono)
+			const sampleRate = audioBuffer.sampleRate;
+
+			// Convert to 16-bit PCM for lamejs
+			const samples = new Int16Array(channelData.length);
+			for (let i = 0; i < channelData.length; i++) {
+				samples[i] = Math.max(-1, Math.min(1, channelData[i])) * 32767;
+			}
+
+			// Encode to MP3 using lamejs
+			const mp3Encoder = new lamejs.Mp3Encoder(1, sampleRate, 128); // Mono, 128kbps
+			const mp3Data = [];
+			const blockSize = 1152; // MP3 frame size
+			for (let i = 0; i < samples.length; i += blockSize) {
+				const sampleChunk = samples.subarray(i, i + blockSize);
+				const mp3buf = mp3Encoder.encodeBuffer(sampleChunk);
+				if (mp3buf.length > 0) {
+					mp3Data.push(mp3buf);
+				}
+			}
+			const mp3buf = mp3Encoder.flush();
+			if (mp3buf.length > 0) {
+				mp3Data.push(mp3buf);
+			}
+
+			// Create MP3 Blob and play the recorded voice
+			const mp3Blob = new Blob(mp3Data, { type: 'audio/mpeg' });
+			const mp3Url = URL.createObjectURL(mp3Blob);
+			let player = document.getElementById('record-reader');
+			player.src = mp3Url;
+
+			// create a "save" button
+			const today = new Date();
+			const now = '_' + (today.getMonth() + 1) + '_' + today.getDate() + '_' + today.getHours() + '_' + today.getMinutes();
+			const downloadLink = document.createElement('a');
+			downloadLink.href = mp3Url;
+			downloadLink.download = 'recording' + now + '.mp3';
+			downloadLink.title = 'Download the recorded voice';
+			downloadLink.innerHTML = '<i class="fa-solid fa-download"></i>';
+			let audioLink = document.getElementById('audio-link');
+			audioLink.innerHTML = '';
+			audioLink.appendChild(downloadLink);
+		} catch (error) {
+			console.log('Error converting to MP3: ', error.message);
+		} finally {
+			if (audioContext && audioContext.state !== 'closed') {
+				audioContext.close().catch((error) => {
+					console.error('Error closing AudioContext:', error);
+				});
+			}
 		}
 	}
 

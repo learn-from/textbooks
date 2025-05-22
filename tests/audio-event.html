@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Recorder Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    audio {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 300px;
+    }
+    #status {
+      color: #333;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Audio Recorder</h1>
+  <button id="recordButton">Record (5 seconds)</button>
+  <audio id="audioPlayback" controls></audio>
+  <p id="status"></p>
+
+  <script>
+    // Check if MediaRecorder is supported
+    if (!window.MediaRecorder) {
+      document.getElementById('status').textContent = 'Error: MediaRecorder not supported in this browser.';
+      document.getElementById('recordButton').disabled = true;
+      console.log('no recorder is found');
+    }
+
+    const recordButton = document.getElementById('recordButton');
+    const audioPlayback = document.getElementById('audioPlayback');
+    const status = document.getElementById('status');
+    let mediaRecorder = null;
+    let audioChunks = [];
+
+    // Request microphone access and start recording
+    async function startRecording() {
+      try {
+        // Request microphone permission
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        
+        // Initialize MediaRecorder
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
+
+        // Collect audio data
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) {
+            audioChunks.push(event.data);
+          }
+        };
+
+        // When recording stops, create and play audio
+        mediaRecorder.onstop = () => {
+          // Create Blob from audio chunks
+          const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+          const audioUrl = URL.createObjectURL(audioBlob);
+          
+          // Set audio element source and play
+          audioPlayback.src = audioUrl;
+          audioPlayback.play().catch((error) => {
+            status.textContent = 'Error playing audio: ' + error.message;
+          });
+
+          // Clean up: Stop all tracks to release microphone
+          stream.getTracks().forEach(track => track.stop());
+          status.textContent = 'Recording complete. Playing audio.';
+        };
+
+        // Start recording
+        mediaRecorder.start();
+        status.textContent = 'Recording...';
+        recordButton.disabled = true;
+
+        // Stop after 5 seconds
+        setTimeout(() => {
+          if (mediaRecorder && mediaRecorder.state === 'recording') {
+            mediaRecorder.stop();
+            recordButton.disabled = false;
+          }
+        }, 5000);
+
+      } catch (error) {
+        status.textContent = 'Error accessing microphone: ' + error.message;
+        recordButton.disabled = false;
+      }
+    }
+
+    // Button click event
+    recordButton.addEventListener('click', startRecording);
+  </script>
+</body>
+</html>

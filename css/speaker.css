@@ -37,7 +37,8 @@ p.reader-msg {
 /* Modal Content */
 .voice-content {
 	background-color: white;
-	margin: 15% auto;
+	margin-top: 2%;
+	margin-left: 54%;
 	padding: 20px;
 	border-radius: 8px;
 	width: 400px;
