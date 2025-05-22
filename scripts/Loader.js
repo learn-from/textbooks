@@ -121,11 +121,11 @@ export class Loader {
 
     // add some event handlers to the modal element
     if (AppUtils.isMobile()) {
-      // Suppress iOS context menu on touchstart
-      article.addEventListener('touchstart', (event) => {
-        // Prevent default to block context menu, but allow selection
-        event.preventDefault();
-      }, { passive: false });
+      // Suppress iOS context menu on touchstart. With this listener, cannot hightlight any text on iOS
+      // article.addEventListener('touchstart', (event) => {
+      //   // Prevent default to block context menu, but allow selection
+      //   event.preventDefault();
+      // }, { passive: false });
 
       article.addEventListener('touchend', (event) => {
         Speaker.sayHighlighted(event);
