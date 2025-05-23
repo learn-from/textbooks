@@ -25,9 +25,6 @@ export class Loader {
       await loader.loadHeader();
       await loader.loadContent();
       await loader.loadPlayer();
-      // if (!AppUtils.isMobile()) {
-      //   await loader.loadPlayer();
-      // }
     } catch (err) {
       console.error("Error loading a content page:", err);
     }

@@ -56,21 +56,21 @@ export class AppUtils {
    */
   static sendEmail(message) {
     if (AppUtils.isMobile()) {
-      const serviceId = 'service_uqlw5qk';
-      const templateId = "template_9x150b6";
-      const from = 'Textbook';
-      const replyTo = "c9@greatwallchineseacademy.org";
+      //   const serviceId = 'service_uqlw5qk';
+      //   const templateId = "template_9x150b6";
+      //   const from = 'Textbook';
+      //   const replyTo = "c9@greatwallchineseacademy.org";
 
-      emailjs.send(serviceId, templateId, {
-        from_name: from,
-        message: message,
-        reply_to: replyTo
-      })
-        .then(function (response) {
-          console.log("Sent an email!", response.status, response.text);
-        }, function (error) {
-          console.error("Failed sending an email", error);
-        });
+      //   emailjs.send(serviceId, templateId, {
+      //     from_name: from,
+      //     message: message,
+      //     reply_to: replyTo
+      //   })
+      //     .then(function (response) {
+      //       console.log("Sent an email!", response.status, response.text);
+      //     }, function (error) {
+      //       console.error("Failed sending an email", error);
+      //     });
     }
   }
 }
